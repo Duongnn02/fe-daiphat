@@ -14,3 +14,9 @@ export interface InforCccd {
   after_cccd_cmnd: any;
   face_cccd_cmnd: any;
 }
+export interface Loan {
+  total_loan: any,
+  time: any;
+  recurring_payment: any;
+}
+

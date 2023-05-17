@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
    registerForm !: FormGroup;
    submitted = false;
    data: any;
+   errors: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -121,12 +122,18 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       phone: this.registerForm.value.phone,
       password: this.registerForm.value.password,
     }
-    console.log(data);
 
     this.authSer.register(data).subscribe(res => {
+      console.log(data);
+
+      console.log(res);
+    },(error) => {
+      this.errors = error.error;
+    },
+    () => {
+      this.registerForm.reset();
       this._Router.navigate(['/thong-tin-cua-toi']);
-    },err => {
-      alert("Đăng ký thất bại");
-    })
+    }
+    )
   }
 }

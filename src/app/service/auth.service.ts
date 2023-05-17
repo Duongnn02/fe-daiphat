@@ -11,19 +11,20 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  register(data: Register): Observable<Register[]>{
+  register(data: Register): Observable<Register[]> {
     return this.http.post<Register[]>(environment.url + 'register', data);
   }
-  login(data: Register): Observable<Register[]>{
+  login(data: Register): Observable<Register[]> {
     return this.http.post<Register[]>(environment.url + 'login', data);
   }
-  uploadCccd(data: InforCccd, id: any): Observable<InforCccd[]>{
-    var formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('cccd_cmnd', data.cccd_cmnd);
-      formData.append('before_cccd_cmnd', data.before_cccd_cmnd);
-      formData.append('after_cccd_cmnd', data.after_cccd_cmnd);
-      formData.append('face_cccd_cmnd', data.face_cccd_cmnd);
+  uploadCccd(data: InforCccd, id: any): Observable<InforCccd[]> {
+    let formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('cccd_cmnd', data.cccd_cmnd);
+    formData.append('before_cccd_cmnd', data.before_cccd_cmnd);
+    formData.append('after_cccd_cmnd', data.after_cccd_cmnd);
+    formData.append('face_cccd_cmnd', data.face_cccd_cmnd);
+
     return this.http.post<InforCccd[]>(environment.url + 'uploadCmnd/' + id, formData);
   }
 }

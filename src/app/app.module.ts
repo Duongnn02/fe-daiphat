@@ -6,13 +6,17 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home/home.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyInforComponent } from './auth/my-infor/my-infor.component';
 import { MyProfileComponent } from './auth/my-profile/my-profile.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AddCccdCmndComponent } from './auth/add-cccd-cmnd/add-cccd-cmnd.component';
+import { AuthInterceptor } from './shared/auth.interceptor';
+import { BaseSevice } from './base.component';
+import { TokenService } from './shared/token.service';
+import { AuthStateService } from './shared/auth-state.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,15 @@ import { AddCccdCmndComponent } from './auth/add-cccd-cmnd/add-cccd-cmnd.compone
       }),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    TokenService,
+    AuthStateService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

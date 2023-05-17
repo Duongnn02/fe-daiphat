@@ -29,6 +29,7 @@ export class AddCccdCmndComponent implements OnInit {
   imageAt: any;
   imageFace: any;
   disable: boolean = false;
+  file:any;
   constructor(
     private fb: FormBuilder,
     private authSer: AuthService,
@@ -50,9 +51,9 @@ export class AddCccdCmndComponent implements OnInit {
       this.currentUser = res.user;
       this.name = this.currentUser.name;
       this.cccd = this.currentUser.cccd_cmnd;
-      this.imageBf = environment.urlImg + this.currentUser.before_cccd_cmnd ?? '';
-      this.imageAt = environment.urlImg + this.currentUser.after_cccd_cmnd ?? '';
-      this.imageFace = environment.urlImg + this.currentUser.face_cccd_cmnd ?? '';
+      this.imageBf = this.currentUser.before_cccd_cmnd ?  environment.urlImg + this.currentUser.before_cccd_cmnd : '';
+      this.imageAt = this.currentUser.after_cccd_cmnd ? environment.urlImg + this.currentUser.after_cccd_cmnd : '';
+      this.imageFace = this.currentUser.face_cccd_cmnd ? environment.urlImg + this.currentUser.face_cccd_cmnd : '';
       if (this.name) {
         this.addFormControl['name'].disable();
         this.disable = true;
@@ -66,10 +67,10 @@ export class AddCccdCmndComponent implements OnInit {
     return this.addCccdForm.controls;
   }
   uploadBFCccd(event: any) {
-    const file = event.target.files ? event.target.files[0] : '';
+    this.file = event.target.files ? event.target.files[0] : '';
 
     this.addCccdForm.patchValue({
-      before_cccd_cmnd: file
+      before_cccd_cmnd: this.file
     });
 
     this.addCccdForm.get('before_cccd_cmnd')?.updateValueAndValidity();
@@ -79,7 +80,7 @@ export class AddCccdCmndComponent implements OnInit {
     reader.onload = () => {
       this.before = reader.result as string;
     }
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(this.file);
 
   }
   uploadATCccd(event: any) {
@@ -127,7 +128,6 @@ export class AddCccdCmndComponent implements OnInit {
 
     this.authSer.uploadCccd(cccd, this.data.id).subscribe(res => {
       this.item = res;
-
     }, err => {
       console.log(err);
       alert("Cập nhập thất bại");

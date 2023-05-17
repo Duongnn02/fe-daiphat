@@ -31,7 +31,8 @@ const routes: Routes = [
     path: 'home', component: HomeComponent,
   },
   {
-    path: 'cccd-cmnd', component: AddCccdCmndComponent
+    path: 'cccd-cmnd', component: AddCccdCmndComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
