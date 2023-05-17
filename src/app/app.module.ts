@@ -17,6 +17,8 @@ import { AuthInterceptor } from './shared/auth.interceptor';
 import { BaseSevice } from './base.component';
 import { TokenService } from './shared/token.service';
 import { AuthStateService } from './shared/auth-state.service';
+import { SupportIndexComponent } from './support/support-index/support-index.component';
+import { ChatComponent } from './support/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AuthStateService } from './shared/auth-state.service';
     MyInforComponent,
     MyProfileComponent,
     LoginComponent,
-    AddCccdCmndComponent
+    AddCccdCmndComponent,
+    SupportIndexComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

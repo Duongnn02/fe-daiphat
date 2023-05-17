@@ -8,6 +8,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/auth.guard ';
 import { AuthGuard_1 } from './auth/auth.guard _1';
 import { AddCccdCmndComponent } from './auth/add-cccd-cmnd/add-cccd-cmnd.component';
+import { SupportIndexComponent } from './support/support-index/support-index.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,6 +33,10 @@ const routes: Routes = [
   },
   {
     path: 'cccd-cmnd', component: AddCccdCmndComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'support', component: SupportIndexComponent,
     canActivate: [AuthGuard]
   }
 ];

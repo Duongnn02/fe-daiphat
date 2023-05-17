@@ -20,5 +20,10 @@ export class UserService {
   storeLoan(data: Loan): Observable<Loan[]>{
     return this.http.post<Loan[]>(environment.url + 'loan-store', data);
   }
-
+  getMessage(): Observable<any> {
+    return this.http.get(environment.url + 'messages');
+  }
+  sendMessage(data: any): Observable<any> {
+    return this.http.post(environment.url + 'messages', data);
+  }
 }
