@@ -14,7 +14,6 @@ import { MyProfileComponent } from './auth/my-profile/my-profile.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AddCccdCmndComponent } from './auth/add-cccd-cmnd/add-cccd-cmnd.component';
 import { AuthInterceptor } from './shared/auth.interceptor';
-import { BaseSevice } from './base.component';
 import { TokenService } from './shared/token.service';
 import { AuthStateService } from './shared/auth-state.service';
 import { SupportIndexComponent } from './support/support-index/support-index.component';

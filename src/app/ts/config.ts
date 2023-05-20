@@ -19,4 +19,6 @@ export interface Loan {
   time: any;
   recurring_payment: any;
 }
-
+export interface Message {
+  message: any
+}

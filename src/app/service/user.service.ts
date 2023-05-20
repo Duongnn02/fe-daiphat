@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Loan } from '../ts/config';
+import {Loan, Message} from '../ts/config';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class UserService {
   getMessage(): Observable<any> {
     return this.http.get(environment.url + 'messages');
   }
-  sendMessage(data: any): Observable<any> {
-    return this.http.post(environment.url + 'messages', data);
+  sendMessage(data: Message): Observable<Message[]> {
+    return this.http.post<Message[]>(environment.url + 'messages', data);
   }
 }
