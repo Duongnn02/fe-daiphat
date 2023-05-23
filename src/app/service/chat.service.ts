@@ -31,7 +31,6 @@ export class ChatService {
   subscribeToChannel(channelName: string, eventName: string, callback: (data: any) => void) {
     this.channel = this.pusher.subscribe(channelName);
     this.channel.bind(eventName, callback);
-    console.log(this.channel)
   }
 
 

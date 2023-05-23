@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Message, Register} from "../../ts/config";
-import {UserService} from "../../service/user.service";
-import {AuthStateService} from "../../shared/auth-state.service";
-import {environment} from "../../../environments/environment";
-import {ChatService} from "../../service/chat.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Message, Register } from "../../ts/config";
+import { UserService } from "../../service/user.service";
+import { AuthStateService } from "../../shared/auth-state.service";
+import { environment } from "../../../environments/environment";
+import { ChatService } from "../../service/chat.service";
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -25,8 +28,10 @@ export class ChatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.chatService.subscribeToChannel('chat', 'App\\Events\\Message', (data: any) => {
+    this.chatService.subscribeToChannel('chat', 'SendMessage', (data: any) => {
       this.messages.push(data.message);
+      console.log(this.messages);
+
     });
 
     this.messageForm = this.fb.group({
