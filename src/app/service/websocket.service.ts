@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { Message } from "../ts/config";
 import { ChatService } from "./chat.service";
 
-const CHAT_URL = "ws://localhost:8000/app/chat-channel";
+const CHAT_URL = "ws://localhost:8000/app/chat";
 
 
 @Injectable()
@@ -62,11 +62,4 @@ export class WebsocketService {
       return new AnonymousSubject<MessageEvent>(observer, observable);
     }
 
-    public handleMessage(message: Message) {
-      this.chatService.sendMessage(message).subscribe(res => {
-        console.log(res);
-
-      }
-      );
-    }
 }

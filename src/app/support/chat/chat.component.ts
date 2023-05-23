@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Message, Register} from "../../ts/config";
-import {environment} from "../../../environments/environment";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Enum, Message, Register } from "../../ts/config";
+import { environment } from "../../../environments/environment";
 import { WebsocketService } from 'src/app/service/websocket.service';
 import { ChatService } from 'src/app/service/chat.service';
 import Echo from 'laravel-echo';
@@ -19,11 +19,11 @@ export class ChatComponent implements OnInit {
   errors: any;
   messageForm !: FormGroup;
   received: any = [];
-  sent: any = [];
+  sent: any[] = [];
+  data: any;
 
   constructor(
     private fb: FormBuilder,
-    private WebsocketService: WebsocketService,
     private chatService: ChatService
 
   ) { }
@@ -35,28 +35,36 @@ export class ChatComponent implements OnInit {
     });
     this.getMessage();
 
-    window.Pusher = Pusher;
-    window.Echo = new Echo({
+    const echo = new Echo({
       broadcaster: 'pusher',
       key: environment.push.key,
-      cluster:  environment.push.cluster,
-      forceTLS: true
-  });
+      cluster: environment.push.cluster,
+      wsHost: window.location.hostname,
+      wsPort: 6001,
+      forceTLS: false,
+      disableStats: true,
+    });
+    echo.channel('chat')
+      .listen('SendMessage', (res: any) => {
+        this.sent.push(res.message);
+        console.log('Chat Event Data : ', this.sent);
+      });
   }
   handleMessage() {
     let message: Message = {
-      source: '',
       message: this.messageForm.value.message,
     }
-    message.source = 'localhost';
-    // this.WebsocketService.handleMessage(message);
-
-    this.sent.push(message);
-    this.WebsocketService.messages.next(message);
+    this.chatService.sendMessage(message).subscribe(res => {
+      this.data = res;
+      if (this.data.status == Enum.SUCCESS)
+      this.messageForm.reset();
+    });
 
   }
   getMessage() {
-
+    this.chatService.getMessage().subscribe(res => {
+      this.sent = res;
+    })
   }
 
 }
