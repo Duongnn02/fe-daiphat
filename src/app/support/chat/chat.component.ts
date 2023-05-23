@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Message, Register } from "../../ts/config";
-import { UserService } from "../../service/user.service";
-import { AuthStateService } from "../../shared/auth-state.service";
-import { environment } from "../../../environments/environment";
-import { ChatService } from "../../service/chat.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Message, Register} from "../../ts/config";
+import {environment} from "../../../environments/environment";
+import { WebsocketService } from 'src/app/service/websocket.service';
+import { ChatService } from 'src/app/service/chat.service';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
@@ -19,44 +18,45 @@ export class ChatComponent implements OnInit {
   messages: any = [];
   errors: any;
   messageForm !: FormGroup;
+  received: any = [];
+  sent: any = [];
 
   constructor(
     private fb: FormBuilder,
-    private chatService: ChatService,
-    private authState: AuthStateService,
+    private WebsocketService: WebsocketService,
+    private chatService: ChatService
 
   ) { }
 
   ngOnInit(): void {
-    this.chatService.subscribeToChannel('chat', 'SendMessage', (data: any) => {
-      this.messages.push(data.message);
-      console.log(this.messages);
-
-    });
 
     this.messageForm = this.fb.group({
       message: ['', [Validators.required]],
     });
     this.getMessage();
+
+    window.Pusher = Pusher;
+    window.Echo = new Echo({
+      broadcaster: 'pusher',
+      key: environment.push.key,
+      cluster:  environment.push.cluster,
+      forceTLS: true
+  });
   }
   handleMessage() {
-    let data: Message = {
+    let message: Message = {
+      source: '',
       message: this.messageForm.value.message,
     }
-    this.chatService.sendMessage(data).subscribe(res => {
-    },
-      (error) => {
-        this.errors = error.error;
-      },
-      () => {
-        this.authState.setAuthState(true);
-        this.messageForm.reset();
-      });
+    message.source = 'localhost';
+    // this.WebsocketService.handleMessage(message);
+
+    this.sent.push(message);
+    this.WebsocketService.messages.next(message);
+
   }
   getMessage() {
-    this.chatService.getMessage().subscribe(res => {
-        this.messages = res;
-    })
+
   }
 
 }

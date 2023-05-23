@@ -18,6 +18,7 @@ import { TokenService } from './shared/token.service';
 import { AuthStateService } from './shared/auth-state.service';
 import { SupportIndexComponent } from './support/support-index/support-index.component';
 import { ChatComponent } from './support/chat/chat.component';
+import { WebsocketService } from './service/websocket.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ChatComponent } from './support/chat/chat.component';
   providers: [
     TokenService,
     AuthStateService,
+    WebsocketService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
