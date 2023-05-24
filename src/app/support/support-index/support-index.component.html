@@ -17,10 +17,10 @@
               style="transform: translateX(0px); padding-bottom: 56px; padding-top: 54px;">
               <ng-container *ngIf="show">
 
-                <app-chat></app-chat>
+                <app-chat [messageUser]="messages"></app-chat>
               </ng-container>
 
-             <div class="wallet" *ngIf="!show">
+             <div class="wallet" *ngIf="!show && !checkRole">
               <div class="wallet-amount"
                 style="background: url(&quot;https://vaydaiphat.com/images/0c1362843d4d8269bc0741c4f21ac884-backgroundWallet.svg&quot;);">
                 <div class="cl-white fs-14">Liên hệ qua ứng dụng</div>
@@ -36,7 +36,24 @@
                 </div>
               </div>
             </div>
-
+              <div class="contacts" *ngIf="checkRole">
+                  <i class="fas fa-bars fa-2x"></i>
+                  <h2>
+                    Contacts
+                  </h2>
+                  <div class="contact" *ngFor="let user of users" (click)="readMessage(user.id)">
+                    <div class="pic rogers"></div>
+<!--                    <div class="badge">-->
+<!--                      14-->
+<!--                    </div>-->
+                    <div class="name" >
+                        {{user.phone}}
+                    </div>
+<!--                    <div class="message">-->
+<!--                      That is America's ass 🇺🇸🍑-->
+<!--                    </div>-->
+                  </div>
+                </div>
             </div>
             <div class="bottom-bar">
               <div class="animation-screen-stack-content">

@@ -26,9 +26,7 @@
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": [
-              "src/assets/js/pusher.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

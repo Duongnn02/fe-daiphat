@@ -5,6 +5,7 @@ export interface Register {
 export interface User {
   id: number;
   phone:any;
+  role_id: number
   token:any;
 }
 export interface InforCccd {
@@ -23,5 +24,6 @@ export interface Message {
   message: any
 }
 export enum Enum {
-  SUCCESS = 'success'
+  SUCCESS = 'success',
+  IS_ADMIN = 1
 }

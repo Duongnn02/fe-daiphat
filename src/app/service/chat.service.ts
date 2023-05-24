@@ -28,10 +28,9 @@ export class ChatService {
     return this.http.post<Message[]>(environment.url + 'messages', data);
   }
 
-  subscribeToChannel(channelName: string, eventName: string, callback: (data: any) => void) {
-    this.channel = this.pusher.subscribe(channelName);
-    this.channel.bind(eventName, callback);
-  }
+ readMessage(id: any): Observable<any> {
+    return this.http.get(environment.url + 'messages/show/' + id);
+ }
 
 
 

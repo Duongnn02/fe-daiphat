@@ -15,7 +15,8 @@ import Pusher from 'pusher-js';
 export class ChatComponent implements OnInit {
   @Input()
   show!: boolean;
-  messages: any = [];
+  @Input() messageUser: any;
+  messages: any[] = [];
   errors: any;
   messageForm !: FormGroup;
   received: any = [];
@@ -46,8 +47,8 @@ export class ChatComponent implements OnInit {
     });
     echo.channel('chat')
       .listen('SendMessage', (res: any) => {
-        this.sent.push(res.message);
-        console.log('Chat Event Data : ', this.sent);
+        this.messages.push(res.message);
+        console.log('Chat Event Data : ', this.messages);
       });
   }
   handleMessage() {
@@ -63,7 +64,7 @@ export class ChatComponent implements OnInit {
   }
   getMessage() {
     this.chatService.getMessage().subscribe(res => {
-      this.sent = res;
+      this.messages = res;
     })
   }
 

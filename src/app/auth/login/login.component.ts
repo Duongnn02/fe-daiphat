@@ -61,10 +61,10 @@ export class LoginComponent implements OnInit {
     this.authSer.login(data).subscribe(res => {
       this.data = res;
       this.responseHandler(this.data);
-
       let user: User = {
         id: this.data.user.id,
         phone: this.data.user.phone,
+        role_id: this.data.user.role_id,
         token: this.data.access_token,
       };
       localStorage.setItem('currentUser', JSON.stringify(user));
