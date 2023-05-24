@@ -14,19 +14,8 @@
       <div class="time">
         Today at 11:41
       </div>
-      <div class="message parker">
-        Hey, man! What's up, Mr Stark? 👋
-      </div>
-      <div class="message stark">
-        Kid, where'd you come from?
-      </div>
-      <div class="message parker">
-        Field trip! 🤣
-      </div>
-<!--      <div class="message parker"  *ngFor="let msg of sent">-->
-<!--        {{msg.message}}-->
-<!--      </div>-->
-      <div class="message stark" *ngFor="let msg of messageUser">
+      <div *ngFor="let msg of messageUser"
+        class="message {{user.id == msg.from_user ? 'parker' : 'stark'}} ">
         {{msg.message}}
       </div>
       <div class="message stark">
@@ -36,8 +25,9 @@
       </div>
     </div>
     <div class="input" [formGroup]="messageForm">
-      <input placeholder="Type your message here!" type="text" formControlName="message" />
-      <button (click)="handleMessage()">Gửi</button>
+      <input placeholder="Type your message here!" type="text"
+        formControlName="message" />
+      <button (click)="handleMessage(userId)">Gửi</button>
     </div>
   </div>
 </div>

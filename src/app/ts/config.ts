@@ -21,7 +21,8 @@ export interface Loan {
   recurring_payment: any;
 }
 export interface Message {
-  message: any
+  message: any,
+  to_user: number
 }
 export enum Enum {
   SUCCESS = 'success',

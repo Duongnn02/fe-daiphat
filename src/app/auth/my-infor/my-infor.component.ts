@@ -11,6 +11,7 @@ export class MyInforComponent implements  OnInit {
   user: any;
   currentUser: any;
   messageCccd: string = '';
+  messageInfor: string = '';
   meSuccess = 'Hoàn thành';
   constructor(private userSer: UserService) {
 
@@ -20,10 +21,12 @@ export class MyInforComponent implements  OnInit {
     if (localStorage['currentUser'])
     this.user = JSON.parse(localStorage['currentUser']);
     const id  = parseInt(this.user.id);
+
     this.userSer.show(id).subscribe(res => {
       this.currentUser = res.user;
-      if (this.currentUser.status_cmnd = 1) {
-        this.messageCccd = this.meSuccess;
+
+      if (this.currentUser.status_cmnd == 1) {
+        this.messageCccd = 'Hoàn thành';
       }
     })
   }

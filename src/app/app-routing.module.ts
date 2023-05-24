@@ -9,6 +9,7 @@ import { AuthGuard } from './auth/auth.guard ';
 import { AuthGuard_1 } from './auth/auth.guard _1';
 import { AddCccdCmndComponent } from './auth/add-cccd-cmnd/add-cccd-cmnd.component';
 import { SupportIndexComponent } from './support/support-index/support-index.component';
+import { WalletComponent } from './wallet/wallet.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -37,6 +38,10 @@ const routes: Routes = [
   },
   {
     path: 'support', component: SupportIndexComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'vi-tien', component: WalletComponent,
     canActivate: [AuthGuard]
   }
 ];

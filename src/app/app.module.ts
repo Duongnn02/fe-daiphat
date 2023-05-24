@@ -19,6 +19,7 @@ import { AuthStateService } from './shared/auth-state.service';
 import { SupportIndexComponent } from './support/support-index/support-index.component';
 import { ChatComponent } from './support/chat/chat.component';
 import { WebsocketService } from './service/websocket.service';
+import { WalletComponent } from './wallet/wallet.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { WebsocketService } from './service/websocket.service';
     LoginComponent,
     AddCccdCmndComponent,
     SupportIndexComponent,
-    ChatComponent
+    ChatComponent,
+    WalletComponent
   ],
   imports: [
     BrowserModule,

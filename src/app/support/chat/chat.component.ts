@@ -16,12 +16,14 @@ export class ChatComponent implements OnInit {
   @Input()
   show!: boolean;
   @Input() messageUser: any;
+  @Input() userId: number = 0;
   messages: any[] = [];
   errors: any;
   messageForm !: FormGroup;
   received: any = [];
   sent: any[] = [];
   data: any;
+  user: any;
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +32,7 @@ export class ChatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.user = JSON.parse(localStorage['currentUser']);
     this.messageForm = this.fb.group({
       message: ['', [Validators.required]],
     });
@@ -47,14 +49,18 @@ export class ChatComponent implements OnInit {
     });
     echo.channel('chat')
       .listen('SendMessage', (res: any) => {
-        this.messages.push(res.message);
-        console.log('Chat Event Data : ', this.messages);
+        this.messageUser.push(res.message);
+        console.log('Chat Event Data : ', this.messageUser);
       });
+
+
   }
-  handleMessage() {
+  handleMessage(id: any) {
     let message: Message = {
       message: this.messageForm.value.message,
+      to_user: id || Enum.IS_ADMIN
     }
+
     this.chatService.sendMessage(message).subscribe(res => {
       this.data = res;
       if (this.data.status == Enum.SUCCESS)
@@ -63,9 +69,13 @@ export class ChatComponent implements OnInit {
 
   }
   getMessage() {
-    this.chatService.getMessage().subscribe(res => {
-      this.messages = res;
-    })
-  }
+    if (this.messageUser == ''){
+      this.chatService.readMessage(this.user.id).subscribe(res => {
+        this.messageUser = res.message;
+        console.log(this.messageUser);
 
+      })
+    }
+
+  }
 }

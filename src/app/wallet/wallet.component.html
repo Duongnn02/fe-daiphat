@@ -1,53 +1,36 @@
 <div id="root">
-  <div class="layout">
+  <div class="layout undefined">
     <div class="content" style="max-width: 375px;">
       <div class="stacks stacks-body-wrap" style="opacity: 1;">
         <div class="screen screen-stack">
-          <!-- <div class="screen-stack screen-stack-wrap">
-            <div class="animation-screen-stack" style="opacity: 1;"> -->
+          <div class="screen-stack screen-stack-wrap">
+            <div class="animation-screen-stack" style="opacity: 1;">
               <div class="animation-screen-stack-content" style="max-width: 375px;">
                 <div class="swapHeader" style="opacity: 1;">
                   <div class="header " style="background-color: rgb(4, 109, 181);">
-                    <div class="header-title " style="left: 154.18px; top: 16px;">Hỗ trợ</div>
+                    <div class="header-title " style="left: 154.18px; top: 16px;">Ví tiền</div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="content-screen-stack"
               style="transform: translateX(0px); padding-bottom: 56px; padding-top: 54px;">
-              <div class="contacts" *ngIf="checkRole">
-                <i class="fas fa-bars fa-2x"></i>
-                <h2>
-                  Contacts
-                </h2>
-                <div class="contact" *ngFor="let user of users" (click)="readMessage(user.id)">
-                  <div class="pic rogers"></div>
-                  <div class="name" >
-                      {{user.phone}}
+              <div class="wallet">
+                <div class="wallet-amount"
+                  style="background: url(&quot;https://vaydaiphat.com/images/0c1362843d4d8269bc0741c4f21ac884-backgroundWallet.svg&quot;);">
+                  <div class="cl-white fs-14">Số dư ví</div>
+                  <div class="cl-white fs-32 fw-600 d-flex" style="cursor: pointer;">0<div class="ml-2"
+                      style="text-decoration: underline; margin-top: -2px;">đ</div>
+                  </div>
+                  <div class="name-account-wallet"></div>
+                </div>
+                <div class="content-wallet">
+                  <div class="text-align-center"><img
+                      src="https://vaydaiphat.com/images/450c452726b72e140803553c99fc7387-EmptyIcon.svg" alt="">
+                    <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">Bạn chưa có yêu cầu rút tiền nào</div>
                   </div>
                 </div>
               </div>
-              <ng-container *ngIf="show">
-                <app-chat [messageUser]="messages" [userId]="userId"></app-chat>
-              </ng-container>
-
-             <div class="wallet" *ngIf="!show && !checkRole">
-              <div class="wallet-amount"
-                style="background: url(&quot;https://vaydaiphat.com/images/0c1362843d4d8269bc0741c4f21ac884-backgroundWallet.svg&quot;);">
-                <div class="cl-white fs-14">Liên hệ qua ứng dụng</div>
-                <div class="cl-white fs-32 fw-600 d-flex" style="cursor: pointer;">
-                  Zalo
-                </div>
-                <div class="name-account-wallet"></div>
-              </div>
-              <div class="content-wallet">
-                <div class="text-align-center">
-                  <button class="btn ant-btn-primary" (click)="openChat()">Bắt đầu</button>
-                  <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">Chat trực tuyến với nhân viên</div>
-                </div>
-              </div>
-            </div>
-
             </div>
             <div class="bottom-bar">
               <div class="animation-screen-stack-content">
@@ -76,8 +59,8 @@
                       <div class="title-bottom-bar"
                         style="text-align: center; font-size: 14px; color: rgb(130, 130, 130);">Trang chủ</div>
                     </div>
-                    <div class="item-bottom-bar" style="width: 93.75px;">
-                      <div style="text-align: center;"><svg width="24" height="24" viewBox="0 0 20 24" fill="#046DB5"
+                    <div class="item-bottom-bar" style="width: 93.75px;" routerLink="/support">
+                      <div style="text-align: center;"><svg width="24" height="24" viewBox="0 0 20 24" fill="#828282"
                           xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M3.22546 12.6839H4.8864C3.29096 10.6175 3.29111 7.31565 4.88645 5.24944H3.41352C6.23841 0.107833 13.7746 0.111353 16.598 5.24944H15.1249C16.7204 7.31579 16.7203 10.6177 15.1249 12.6839H16.7858C18.0047 12.6839 18.9963 11.6922 18.9963 10.4734V7.45998C18.9963 6.94919 18.8217 6.4787 18.5297 6.10394C15.7107 -2.02763 4.31086 -2.04171 1.48147 6.10408C1.18952 6.4788 1.01492 6.94924 1.01492 7.45994V10.4734C1.01492 11.6922 2.00657 12.6839 3.22546 12.6839Z">
@@ -90,10 +73,10 @@
                           </path>
                         </svg></div>
                       <div class="title-bottom-bar"
-                        style="text-align: center; font-size: 14px; color: rgb(4, 109, 181);">Hỗ trợ</div>
+                        style="text-align: center; font-size: 14px; color: rgb(130, 130, 130);">Hỗ trợ</div>
                     </div>
                     <div class="item-bottom-bar" style="width: 93.75px;" routerLink="/vi-tien">
-                      <div style="text-align: center;"><svg width="24" height="24" viewBox="0 0 16 16" fill="#828282"
+                      <div style="text-align: center;"><svg width="24" height="24" viewBox="0 0 16 16" fill="#046DB5"
                           xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_726_5123)">
                             <path
@@ -116,7 +99,7 @@
                           </defs>
                         </svg></div>
                       <div class="title-bottom-bar"
-                        style="text-align: center; font-size: 14px; color: rgb(130, 130, 130);">Ví tiền</div>
+                        style="text-align: center; font-size: 14px; color: rgb(4, 109, 181);">Ví tiền</div>
                     </div>
                     <div class="item-bottom-bar" style="width: 93.75px;" routerLink="/trang-ca-nhan">
                       <div style="text-align: center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="#828282"
@@ -139,4 +122,5 @@
         </div>
       </div>
     </div>
-
+  </div>
+</div>

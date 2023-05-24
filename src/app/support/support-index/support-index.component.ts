@@ -17,15 +17,12 @@ export class SupportIndexComponent implements OnInit {
   data: any = [];
   users: any = [];
   messages: any = [];
+  userId: number = 0;
   checkRole: boolean = false;
   ngOnInit(): void {
     this.isAdmin = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.getMessage();
 
-    console.log(this.isAdmin.role_id)
-    if (this.isAdmin.role_id == Enum.IS_ADMIN) {
-      this.checkRole = true;
-      this.getMessage();
-    }
   }
 
   openChat() {
@@ -35,15 +32,20 @@ export class SupportIndexComponent implements OnInit {
   getMessage() {
     this.chatService.getMessage().subscribe(res => {
       this.data = res;
-      this.users = this.data.users
+      if (this.isAdmin.role_id == Enum.IS_ADMIN) {
+        this.checkRole = true;
+        this.users = this.data.users
+      }
     })
   }
   readMessage(id: number) {
+    console.log(id);
+
+    this.userId = id;
     this.chatService.readMessage(id).subscribe(res => {
       this.messages = res.message;
       this.show = true;
 
-      console.log(this.messages)
     })
   }
 

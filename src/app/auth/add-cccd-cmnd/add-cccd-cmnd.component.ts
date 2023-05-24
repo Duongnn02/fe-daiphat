@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BaseSevice } from 'src/app/base.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
@@ -33,7 +34,9 @@ export class AddCccdCmndComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authSer: AuthService,
-    private userSer: UserService) {
+    private userSer: UserService,
+    private router: Router,
+    ) {
   }
 
   ngOnInit(): void {
@@ -131,6 +134,9 @@ export class AddCccdCmndComponent implements OnInit {
     }, err => {
       console.log(err);
       alert("Cập nhập thất bại");
+    },
+    () => {
+      this.router.navigate(['/thong-tin-cua-toi']);
     });
 
   }
