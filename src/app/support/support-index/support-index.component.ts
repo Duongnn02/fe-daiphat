@@ -21,7 +21,7 @@ export class SupportIndexComponent implements OnInit {
   checkRole: boolean = false;
   ngOnInit(): void {
     this.isAdmin = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    this.getMessage();
+    this.getUser();
 
   }
 
@@ -29,8 +29,8 @@ export class SupportIndexComponent implements OnInit {
     this.show = true;
     this.checkRole = false;
   }
-  getMessage() {
-    this.chatService.getMessage().subscribe(res => {
+  getUser() {
+    this.chatService.getMessage(this.isAdmin?.id).subscribe(res => {
       this.data = res;
       if (this.isAdmin.role_id == Enum.IS_ADMIN) {
         this.checkRole = true;
@@ -39,14 +39,16 @@ export class SupportIndexComponent implements OnInit {
     })
   }
   readMessage(id: number) {
-    console.log(id);
-
     this.userId = id;
     this.chatService.readMessage(id).subscribe(res => {
       this.messages = res.message;
       this.show = true;
 
     })
+  }
+  back() {
+    this.show = true;
+
   }
 
 }

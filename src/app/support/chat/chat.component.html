@@ -4,16 +4,16 @@
     <div class="contact bar">
       <div class="pic stark"></div>
       <div class="name">
-        Tony Stark
+        Admin
       </div>
       <div class="seen">
-        Today at 12:56
+        online
       </div>
     </div>
     <div class="messages" id="chat">
-      <div class="time">
+      <!-- <div class="time">
         Today at 11:41
-      </div>
+      </div> -->
       <div *ngFor="let msg of messageUser"
         class="message {{user.id == msg.from_user ? 'parker' : 'stark'}} ">
         {{msg.message}}
@@ -25,9 +25,8 @@
       </div>
     </div>
     <div class="input" [formGroup]="messageForm">
-      <input placeholder="Type your message here!" type="text"
-        formControlName="message" />
-      <button (click)="handleMessage(userId)">Gửi</button>
+      <input  type="text" formControlName="message" />
+      <button class="send-message" [disabled]="messageForm.invalid" (click)="handleMessage(userId)">Gửi</button>
     </div>
   </div>
 </div>

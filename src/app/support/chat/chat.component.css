@@ -235,7 +235,7 @@ body, html {
   }
 }
 .pic.stark {
-  background-image: url("https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/7/73/SMH_Mentor_6.png");
+  background-image: url("https://png.pngtree.com/png-vector/20230316/ourlarge/pngtree-admin-and-customer-service-job-vacancies-vector-png-image_6650726.png");
 }
 
 .pic.banner {
@@ -252,4 +252,11 @@ body, html {
 
 .pic.rogers {
   background-image: url("https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/7/7c/Cap.America_%28We_Don%27t_Trade_Lives_Vision%29.png");
+}
+.send-message {
+  background: #046aaf;
+  border: 1px solid #046aaf;
+  border-radius: 5px;
+  padding: 5px 9px 5px 9px;
+  color: #fff;
 }

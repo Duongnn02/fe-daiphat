@@ -10,6 +10,9 @@ import { AuthGuard_1 } from './auth/auth.guard _1';
 import { AddCccdCmndComponent } from './auth/add-cccd-cmnd/add-cccd-cmnd.component';
 import { SupportIndexComponent } from './support/support-index/support-index.component';
 import { WalletComponent } from './wallet/wallet.component';
+import { LoanAmonutComponent } from './loan/loan-amonut/loan-amonut.component';
+import { LoanDetailComponent } from './loan/loan-detail/loan-detail.component';
+import { AuthGuard_loan } from './auth/auth.guard _loan';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -42,6 +45,14 @@ const routes: Routes = [
   },
   {
     path: 'vi-tien', component: WalletComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'khoan-vay', component: LoanAmonutComponent,
+    canActivate: [AuthGuard_loan]
+  },
+  {
+    path: 'chi-tiet-khoan-vay', component: LoanDetailComponent,
     canActivate: [AuthGuard]
   }
 ];

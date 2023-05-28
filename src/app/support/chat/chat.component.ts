@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Enum, Message, Register } from "../../ts/config";
 import { environment } from "../../../environments/environment";
@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit {
   show!: boolean;
   @Input() messageUser: any;
   @Input() userId: number = 0;
+  @Output() backEmit = new EventEmitter<boolean>();
   messages: any[] = [];
   errors: any;
   messageForm !: FormGroup;
@@ -63,19 +64,25 @@ export class ChatComponent implements OnInit {
 
     this.chatService.sendMessage(message).subscribe(res => {
       this.data = res;
-      if (this.data.status == Enum.SUCCESS)
-      this.messageForm.reset();
+      if (this.data.status == Enum.SUCCESS) {
+        this.messageForm.reset();
+      }
     });
 
   }
   getMessage() {
-    if (this.messageUser == ''){
+    if (this.messageUser == '') {
       this.chatService.readMessage(this.user.id).subscribe(res => {
         this.messageUser = res.message;
         console.log(this.messageUser);
 
       })
     }
+  }
+  back() {
+    this.show = true;
+    console.log(123);
 
+    this.backEmit.emit(this.show);
   }
 }

@@ -8,6 +8,14 @@
               <div class="animation-screen-stack-content" style="max-width: 375px;">
                 <div class="swapHeader" style="opacity: 1;">
                   <div class="header " style="background-color: rgb(4, 109, 181);">
+                    <!-- <div class="button-back-left undefined">
+                      <div class="content-back" routerLink="/thong-tin-cua-toi"><svg width="26" height="24" viewBox="0 0 26 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15.92
+                            18L9.67998 12L15.92 6" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                        </svg><span class="title-back">Quay lại</span></div>
+                    </div> -->
                     <div class="header-title " style="left: 154.18px; top: 16px;">Hỗ trợ</div>
                   </div>
                 </div>
@@ -28,7 +36,7 @@
                 </div>
               </div>
               <ng-container *ngIf="show">
-                <app-chat [messageUser]="messages" [userId]="userId"></app-chat>
+                <app-chat [messageUser]="messages" [userId]="userId" (backEmit)="back()"></app-chat>
               </ng-container>
 
              <div class="wallet" *ngIf="!show && !checkRole">

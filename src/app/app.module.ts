@@ -20,6 +20,8 @@ import { SupportIndexComponent } from './support/support-index/support-index.com
 import { ChatComponent } from './support/chat/chat.component';
 import { WebsocketService } from './service/websocket.service';
 import { WalletComponent } from './wallet/wallet.component';
+import { LoanAmonutComponent } from './loan/loan-amonut/loan-amonut.component';
+import { LoanDetailComponent } from './loan/loan-detail/loan-detail.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { WalletComponent } from './wallet/wallet.component';
     AddCccdCmndComponent,
     SupportIndexComponent,
     ChatComponent,
-    WalletComponent
+    WalletComponent,
+    LoanAmonutComponent,
+    LoanDetailComponent
   ],
   imports: [
     BrowserModule,

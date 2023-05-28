@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoanService } from 'src/app/service/loan.service';
 import { UserService } from 'src/app/service/user.service';
 import { Loan } from 'src/app/ts/config';
 
@@ -14,10 +15,12 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private userSer: UserService,
     private fb: FormBuilder,
+    private loanService: LoanService
   ) { }
   button: any;
   token: any;
   data: any;
+  loan: any;
   runIndex: any;
   minMoney: number = 30000000;
   maxMoney: number = 1000000000;
@@ -51,12 +54,18 @@ export class HomeComponent implements OnInit {
       }
     });
     this.paymentDf();
+    this.getMoneyLoan();
     this.loanForm = this.fb.group({
       total_loan: ['', [Validators.required]],
       time: ['', [Validators.required]],
       recurring_payment: ['', [Validators.required]],
     });
 
+  }
+  getMoneyLoan() {
+    this.loanService.getMoneyLoan(JSON.parse(this.token).id).subscribe(res => {
+      this.loan = res.sum || 0;
+    });
   }
   autoPlay() {
     for (let index = 0; index <= this.max; index++) {
@@ -146,14 +155,29 @@ export class HomeComponent implements OnInit {
     this.calculator(this.rangMoney);
   }
   storeLoanPackage() {
-    let loan: Loan = {
-      total_loan: this.rangMoney,
-      time: this.rangMonth,
-      recurring_payment: this.payments,
+    if (this.token == null) {
+      this.router.navigate(['/login']);
+      return;
     }
-    this.userSer.storeLoan(loan).subscribe(res => {
-      console.log(res);
-
+    this.userSer.show(JSON.parse(this.token).id).subscribe(res => {
+      let loan: any;
+      loan = res.user;
+      if (loan.status_cmnd == undefined && loan.status_bank == undefined
+        && loan.status_infor == undefined) {
+        this.router.navigate(['/thong-tin-cua-toi']);
+      } else {
+        let loan: Loan = {
+          total_loan: this.rangMoney,
+          time: this.rangMonth,
+          recurring_payment: this.payments,
+        }
+        if (localStorage['loan_amount']) {
+          localStorage.removeItem('loan_amount');
+        }
+        localStorage.setItem('loan_amount', JSON.stringify(loan));
+        this.router.navigate(['khoan-vay']);
+      }
     })
+
   }
 }

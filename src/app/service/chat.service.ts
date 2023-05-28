@@ -13,15 +13,14 @@ export class ChatService {
   private pusher: Pusher;
   // @ts-ignore
   private channel: Pusher.Channel;
-
   constructor(private http: HttpClient) {
     this.pusher = new Pusher(environment.push.key, {
       cluster: environment.push.cluster,
     });
   }
 
-  getMessage(): Observable<any> {
-    return this.http.get(environment.url + 'messages');
+  getMessage(id?: any): Observable<any> {
+    return this.http.get(environment.url + 'messages/' + id);
   }
 
   sendMessage(data: Message): Observable<Message[]> {

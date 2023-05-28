@@ -1,0 +1,104 @@
+
+
+<div id="root">
+  <div class="layout undefined">
+    <div class="content" style="max-width: 375px;">
+      <div class="stacks stacks-body-wrap" style="opacity: 1;">
+        <div class="screen screen-stack">
+          <div class="screen-stack screen-stack-wrap">
+            <div class="animation-screen-stack" style="opacity: 1;">
+              <div class="animation-screen-stack-content" style="max-width: 375px;">
+                <div class="swapHeader" style="opacity: 1;">
+                  <div class="header " style="background-color: rgb(4, 109, 181);">
+                    <div class="button-back-left undefined" routerLink="/khoan-vay">
+                      <div class="content-back"><svg width="26" height="24" viewBox="0 0 26 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15.92 18L9.67998 12L15.92 6" stroke="#fff" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                        </svg><span class="title-back">Quay lại</span></div>
+                    </div>
+                    <div class="header-title " style="left: 105.195px; top: 16px; max-width: 222.75px;">Xác nhận khoản vay</div>                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content-screen-stack"
+            style="transform: translateX(0px); padding-bottom: 0px; padding-top: 54px;">
+            <div class="detail-loan h-100">
+              <div class="w-100">
+                <div class="text-align-center fw-600 fs-14">Khoản vay của bạn</div>
+                <div class="text-align-center fw-500 fs-24">30.000.000 đ</div>
+                <div style="padding: 10px 0px;">
+                  <div class="steps">
+                    <div class="fw-600 text-align-center pv-12" style="color: rgb(254, 127, 45);">Đang được xét duyệt!
+                    </div>
+                    <div class="d-flex align-tems-center justify-content-between">
+                      <div class="step" style="color: rgb(254, 127, 45); width: 108.667px;">
+                        <div class="step-circle-line"
+                          style="border-top-color: rgb(217, 217, 217); left: 64.3333px; width: 88.6667px;"></div>
+                        <div class="step-circle " style="background: rgb(254, 127, 45);"></div>
+                        <div class="text-align-center fw-500"><span class="fs-12">Đang xét duyệt</span></div>
+                      </div>
+                      <div class="step" style="color: rgb(217, 217, 217); width: 108.667px;">
+                        <div class="step-circle-line"
+                          style="border-top-color: rgb(217, 217, 217); left: 64.3333px; width: 88.6667px;"></div>
+                        <div class="step-circle " style="background: rgb(217, 217, 217);"></div>
+                        <div class="text-align-center fw-500"><span class="fs-12">Duyệt thành công</span></div>
+                      </div>
+                      <div class="step" style="color: rgb(217, 217, 217); width: 108.667px;">
+                        <div class="step-circle " style="background: rgb(217, 217, 217);"></div>
+                        <div class="text-align-center fw-500"><span class="fs-12">Đã giải ngân</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="ph-16 bg-white fs-14 br-12">
+                  <div class="d-flex pv-16 justify-content-between"
+                    style="border-bottom: 1px dashed rgb(254, 127, 45);">
+                    <div>Số Hợp đồng:</div>
+                    <div class="fw-600 fs-14">{{data.contract_number || ''}}</div>
+                  </div>
+                  <div class="d-flex pv-16 justify-content-between"
+                    style="border-bottom: 1px dashed rgb(254, 127, 45);">
+                    <div>Số tiền vay:</div>
+                    <div class="fw-600 fs-14">{{data.total_loan | number}}đ</div>
+                  </div>
+                  <div class="d-flex  pv-16 justify-content-between"
+                    style="border-bottom: 1px dashed rgb(254, 127, 45);">
+                    <div>Thời gian vay:</div>
+                    <div class="fw-600 fs-14">{{data.time}} tháng</div>
+                  </div>
+                  <div class="d-flex pt-16 justify-content-between">
+                    <div>Trả nợ hàng tháng:</div>
+                    <div class="fw-600 fs-14">{{data.recurring_payment |number }}đ</div>
+                  </div>
+                  <div class="pb-16" style="border-bottom: 1px dashed rgb(254, 127, 45);"><em class="fs-13">(Đã bao
+                      gồm tiền lãi hàng tháng là 210.000đ )</em></div>
+                  <div class="d-flex pv-16 justify-content-between"
+                    style="border-bottom: 1px dashed rgb(254, 127, 45);">
+                    <div>Ngân hàng nhận tiền:</div>
+                    <div class="fw-600 fs-14">Geovany Wilderman</div>
+                  </div>
+                  <div class="d-flex pt-16 justify-content-between">
+                    <div class="primary fw-500 fs-14">Hướng dẫn trả nợ:</div>
+                  </div>
+                  <div class="fs-13 fw-500">Bạn cần phải thanh toán trả góp khoản vay trước ngày 15 hàng tháng.</div>
+                  <div class="pv-8">Vào phần<span class="fw-600 link mh-4">Trả nợ của tôi</span>và thực hiện trả nợ.
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex align-items-end mt-16" routerLink="/support">
+                <div class="w-100">
+                  <div class="button-custom pb-16 w-100"><button type="button"
+                      class="ant-btn ant-btn-primary"><span>LIÊN HỆ CSKH ĐỂ ĐƯỢC DUYỆT HỒ SƠ VAY!</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
