@@ -31,6 +31,8 @@ import { AddMyProfileComponent } from './auth/my-profile/add-my-profile/add-my-p
 import { AddMyBankComponent } from './auth/my-profile/add-my-bank/add-my-bank.component';
 import { SignatureComponent } from './auth/my-profile/signature/signature.component';
 import { AdditionalInforComponent } from './auth/my-profile/additional-infor/additional-infor.component';
+import { SupportAdminComponent } from './support/support-admin/support-admin.component';
+import { SupportUserComponent } from './support/support-user/support-user.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { AdditionalInforComponent } from './auth/my-profile/additional-infor/add
     AddMyProfileComponent,
     AddMyBankComponent,
     SignatureComponent,
-    AdditionalInforComponent
+    AdditionalInforComponent,
+    SupportAdminComponent,
+    SupportUserComponent
   ],
   imports: [
     BrowserModule,

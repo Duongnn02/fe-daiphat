@@ -1,0 +1,9 @@
+<div class="contacts" *ngIf="!show">
+  <div class="contact" *ngFor="let user of users" (click)="readMessage(user.id)">
+    <div class="pic rogers"></div>
+    <div class="name" >
+        {{user.phone}}
+    </div>
+  </div>
+</div>
+<app-chat *ngIf="show" [messageUser]="messages"></app-chat>

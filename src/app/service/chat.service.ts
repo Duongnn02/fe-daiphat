@@ -19,8 +19,8 @@ export class ChatService {
     });
   }
 
-  getMessage(id?: any): Observable<any> {
-    return this.http.get(environment.url + 'messages/' + id);
+  getMessage(): Observable<any> {
+    return this.http.get(environment.url + 'messages');
   }
 
   sendMessage(data: Message): Observable<Message[]> {

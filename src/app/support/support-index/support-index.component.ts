@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Enum} from "../../ts/config";
-import {ChatService} from "../../service/chat.service";
+import { Component, OnInit } from '@angular/core';
+import { Enum } from "../../ts/config";
+import { ChatService } from "../../service/chat.service";
 
 @Component({
   selector: 'app-support-index',
@@ -24,18 +24,16 @@ export class SupportIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAdmin = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
     this.getUser();
 
   }
 
-  openChat() {
-    this.show = true;
-    this.checkRole = false;
-  }
+
 
   getUser() {
     if (this.isAdmin.role_id == Enum.IS_ADMIN) {
-      this.chatService.getMessage(this.isAdmin?.id).subscribe(res => {
+      this.chatService.getMessage().subscribe(res => {
         this.data = res;
         this.checkRole = true;
         this.users = this.data.users
@@ -43,14 +41,7 @@ export class SupportIndexComponent implements OnInit {
     }
   }
 
-  readMessage(id: number) {
-    this.userId = id;
-    this.chatService.readMessage(id).subscribe(res => {
-      this.messages = res.message;
-      this.show = true;
 
-    })
-  }
 
   back() {
     this.show = true;
