@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Enum} from "../../ts/config";
 import {ChatService} from "../../service/chat.service";
 
@@ -11,7 +11,9 @@ export class SupportIndexComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
-  ) { }
+  ) {
+  }
+
   show: boolean = false;
   isAdmin: any;
   data: any = [];
@@ -19,6 +21,7 @@ export class SupportIndexComponent implements OnInit {
   messages: any = [];
   userId: number = 0;
   checkRole: boolean = false;
+
   ngOnInit(): void {
     this.isAdmin = JSON.parse(localStorage.getItem('currentUser') || '{}');
     this.getUser();
@@ -29,15 +32,17 @@ export class SupportIndexComponent implements OnInit {
     this.show = true;
     this.checkRole = false;
   }
+
   getUser() {
-    this.chatService.getMessage(this.isAdmin?.id).subscribe(res => {
-      this.data = res;
-      if (this.isAdmin.role_id == Enum.IS_ADMIN) {
+    if (this.isAdmin.role_id == Enum.IS_ADMIN) {
+      this.chatService.getMessage(this.isAdmin?.id).subscribe(res => {
+        this.data = res;
         this.checkRole = true;
         this.users = this.data.users
-      }
-    })
+      })
+    }
   }
+
   readMessage(id: number) {
     this.userId = id;
     this.chatService.readMessage(id).subscribe(res => {
@@ -46,6 +51,7 @@ export class SupportIndexComponent implements OnInit {
 
     })
   }
+
   back() {
     this.show = true;
 

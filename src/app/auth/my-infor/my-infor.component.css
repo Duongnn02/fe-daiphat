@@ -68,7 +68,7 @@
     }
     .layout {
       width: 100%;
-      height: 100%;
+      height: 100vh;
       display: flex;
       justify-content: center;
       overflow: hidden;
@@ -27174,7 +27174,7 @@
     .ml-8 {
       margin-left: 8px;
     }
-  
+
     /* sc-component-id: sc-keyframes-FiaaB */
     @-webkit-keyframes FiaaB{100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}@keyframes FiaaB{100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}
     /* sc-component-id: sc-keyframes-gTcftA */

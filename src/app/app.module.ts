@@ -22,6 +22,15 @@ import { WebsocketService } from './service/websocket.service';
 import { WalletComponent } from './wallet/wallet.component';
 import { LoanAmonutComponent } from './loan/loan-amonut/loan-amonut.component';
 import { LoanDetailComponent } from './loan/loan-detail/loan-detail.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import {LoadingInterceptor} from "./shared/loading.interceptor";
+import { MyLoanComponent } from './loan/my-loan/my-loan.component';
+import { MyPayComponent } from './loan/my-pay/my-pay.component';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
+import { AddMyProfileComponent } from './auth/my-profile/add-my-profile/add-my-profile.component';
+import { AddMyBankComponent } from './auth/my-profile/add-my-bank/add-my-bank.component';
+import { SignatureComponent } from './auth/my-profile/signature/signature.component';
+import { AdditionalInforComponent } from './auth/my-profile/additional-infor/additional-infor.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +45,15 @@ import { LoanDetailComponent } from './loan/loan-detail/loan-detail.component';
     ChatComponent,
     WalletComponent,
     LoanAmonutComponent,
-    LoanDetailComponent
+    LoanDetailComponent,
+    SpinnerComponent,
+    MyLoanComponent,
+    MyPayComponent,
+    ChangePasswordComponent,
+    AddMyProfileComponent,
+    AddMyBankComponent,
+    SignatureComponent,
+    AdditionalInforComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +76,11 @@ import { LoanDetailComponent } from './loan/loan-detail/loan-detail.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true
     }
   ],

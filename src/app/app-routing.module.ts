@@ -13,6 +13,13 @@ import { WalletComponent } from './wallet/wallet.component';
 import { LoanAmonutComponent } from './loan/loan-amonut/loan-amonut.component';
 import { LoanDetailComponent } from './loan/loan-detail/loan-detail.component';
 import { AuthGuard_loan } from './auth/auth.guard _loan';
+import {MyLoanComponent} from "./loan/my-loan/my-loan.component";
+import {MyPayComponent} from "./loan/my-pay/my-pay.component";
+import {ChangePasswordComponent} from "./auth/change-password/change-password.component";
+import {AddMyProfileComponent} from "./auth/my-profile/add-my-profile/add-my-profile.component";
+import {AddMyBankComponent} from "./auth/my-profile/add-my-bank/add-my-bank.component";
+import {SignatureComponent} from "./auth/my-profile/signature/signature.component";
+import {AdditionalInforComponent} from "./auth/my-profile/additional-infor/additional-infor.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -54,7 +61,35 @@ const routes: Routes = [
   {
     path: 'chi-tiet-khoan-vay', component: LoanDetailComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'khoan-vay-cua-toi', component: MyLoanComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'tra-no-cua-toi', component: MyPayComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'thay-doi-mat-khau', component: ChangePasswordComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'them-thong-tin-ca-nhan', component: AddMyProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'ngan-hang', component: AddMyBankComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'chu-ky', component: SignatureComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'thong-tin-bo-sung', component: AdditionalInforComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
