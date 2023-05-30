@@ -34,6 +34,7 @@ import { AdditionalInforComponent } from './auth/my-profile/additional-infor/add
 import { SupportAdminComponent } from './support/support-admin/support-admin.component';
 import { SupportUserComponent } from './support/support-user/support-user.component';
 import { ModalComponent } from './auth/modal/modal.component';
+import {ChatUserComponent} from "./support/chat-user/chat-user.component";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ModalComponent } from './auth/modal/modal.component';
     AdditionalInforComponent,
     SupportAdminComponent,
     SupportUserComponent,
-    ModalComponent
+    ModalComponent,
+    ChatUserComponent
   ],
   imports: [
     BrowserModule,

@@ -24,11 +24,11 @@ export class ChatService {
   }
 
   sendMessage(data: Message): Observable<Message[]> {
-    return this.http.post<Message[]>(environment.url + 'messages', data);
+    return this.http.post<Message[]>(environment.url + 'messages-store', data);
   }
 
  readMessage(id: any): Observable<any> {
-    return this.http.get(environment.url + 'messages/show/' + id);
+    return this.http.get(environment.url + 'messages-show/' + id);
  }
 
 

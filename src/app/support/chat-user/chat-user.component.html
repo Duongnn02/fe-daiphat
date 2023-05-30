@@ -4,7 +4,10 @@
     <div class="contact bar">
       <div class="pic stark"></div>
       <div class="name">
-        {{user.phone}}
+        Admin
+      </div>
+      <div class="seen">
+        online
       </div>
     </div>
     <div class="messages" id="chat">
@@ -12,14 +15,14 @@
         Today at 11:41
       </div> -->
       <div *ngFor="let msg of messageUser"
-        class="message {{user.id != msg.from_user ? 'parker' : 'stark'}} ">
+        class="message {{user.id == msg.from_user ? 'parker' : 'stark'}} ">
         {{msg.message}}
       </div>
-<!--      <div class="message stark">-->
-<!--        <div class="typing typing-1"></div>-->
-<!--        <div class="typing typing-2"></div>-->
-<!--        <div class="typing typing-3"></div>-->
-<!--      </div>-->
+      <div class="message stark">
+        <div class="typing typing-1"></div>
+        <div class="typing typing-2"></div>
+        <div class="typing typing-3"></div>
+      </div>
     </div>
     <div class="input" [formGroup]="messageForm">
       <input  type="text" formControlName="message" />

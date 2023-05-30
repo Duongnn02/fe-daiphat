@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ChatService } from 'src/app/service/chat.service';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-support-admin',
@@ -8,9 +9,13 @@ import { ChatService } from 'src/app/service/chat.service';
 })
 export class SupportAdminComponent implements OnInit {
   @Input() users: any;
+  @Input() show: boolean = false;
+  @Output() backEmit = new EventEmitter<boolean>();
   messages: any;
-  show: boolean = false;
+  user: any;
+  // show: boolean = false;
   constructor(private chatService: ChatService,
+              private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -18,8 +23,11 @@ export class SupportAdminComponent implements OnInit {
   readMessage(id: number) {
     this.chatService.readMessage(id).subscribe(res => {
       this.messages = res.message;
+      this.user = res.user;
       this.show = true;
+      this.backEmit.emit(this.show);
     })
   }
+
 
 }

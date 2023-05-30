@@ -8,21 +8,19 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  selector: 'app-chat-user',
+  templateUrl: './chat-user.component.html',
+  styleUrls: ['./chat-user.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatUserComponent implements OnInit {
 
   @Input() messageUser: any;
-  @Input() user: any;
-  @Input() userId: number = 0;
   @Output() backEmit = new EventEmitter<boolean>();
   messages: any[] = [];
-  errors: any;
   messageForm !: FormGroup;
   data: any;
-  show: boolean = false;
+  user: any;
+  show: boolean = true;
   constructor(
     private fb: FormBuilder,
     private chatService: ChatService
@@ -30,6 +28,8 @@ export class ChatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage['currentUser']);
+
     this.messageForm = this.fb.group({
       message: ['', [Validators.required]],
     });
@@ -55,7 +55,7 @@ export class ChatComponent implements OnInit {
   handleMessage() {
     let message: Message = {
       message: this.messageForm.value.message,
-      to_user: this.user.id
+      to_user: Enum.IS_ADMIN
     }
 
     this.chatService.sendMessage(message).subscribe(res => {

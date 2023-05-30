@@ -22,7 +22,7 @@ export interface Loan {
 }
 export interface Message {
   message: any,
-  to_user: number
+  to_user: any
 }
 export enum Enum {
   SUCCESS = 'success',

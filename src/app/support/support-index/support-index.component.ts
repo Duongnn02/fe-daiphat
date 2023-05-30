@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Enum } from "../../ts/config";
-import { ChatService } from "../../service/chat.service";
+import {Component, OnInit} from '@angular/core';
+import {Enum} from "../../ts/config";
+import {ChatService} from "../../service/chat.service";
+import {UserService} from "../../service/user.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-support-index',
@@ -11,6 +13,8 @@ export class SupportIndexComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
+    private userService: UserService,
+    private location: Location
   ) {
   }
 
@@ -20,32 +24,29 @@ export class SupportIndexComponent implements OnInit {
   users: any = [];
   messages: any = [];
   userId: number = 0;
-  checkRole: boolean = false;
+  user: any;
+  list: any;
 
   ngOnInit(): void {
-    this.isAdmin = JSON.parse(localStorage.getItem('currentUser') || '{}');
-
-    this.getUser();
+    this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.userService.show(this.user.id).subscribe(res => {
+      this.list = res.user;
+      if (this.list.role_id == Enum.IS_ADMIN) {
+        this.getUser();
+      }
+    })
 
   }
-
-
 
   getUser() {
-    if (this.isAdmin.role_id == Enum.IS_ADMIN) {
-      this.chatService.getMessage().subscribe(res => {
-        this.data = res;
-        this.checkRole = true;
-        this.users = this.data.users
-      })
-    }
+    this.chatService.getMessage().subscribe(res => {
+      this.users = res.users;
+    })
   }
-
-
-
+  goBack(event: boolean) {
+    this.show = event;
+  }
   back() {
-    this.show = true;
-
+    this.show = false;
   }
-
 }

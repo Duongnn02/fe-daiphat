@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import {finalize, Observable} from 'rxjs';
 import {LoaderService} from "../service/loader.service";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
@@ -15,9 +16,13 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   constructor(
     private loadingService: LoaderService
-  ) {}
+  ) {
+  }
+
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('caught')
+    if (request.url === environment.url + 'messages-store') {
+      return next.handle(request);
+    }
     this.totalRequests++;
     this.loadingService.setLoading(true);
     return next.handle(request).pipe(
@@ -27,5 +32,6 @@ export class LoadingInterceptor implements HttpInterceptor {
           this.loadingService.setLoading(false);
         }
       })
-    );  }
+    );
+  }
 }

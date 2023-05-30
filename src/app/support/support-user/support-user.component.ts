@@ -9,16 +9,21 @@ import { ChatService } from 'src/app/service/chat.service';
 export class SupportUserComponent implements OnInit {
   show:boolean = false;
   messages: any;
+  user: any;
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.readMessage();
+    console.log(this.user.id)
   }
   openChat() {
     this.show = true;
   }
-  readMessage(id: number) {
-    this.chatService.readMessage(id).subscribe(res => {
+  readMessage() {
+    this.chatService.readMessage(this.user.id).subscribe(res => {
       this.messages = res.message;
+      console.log(this.messages);
     })
   }
 }

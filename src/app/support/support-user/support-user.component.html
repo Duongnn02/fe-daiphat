@@ -1,4 +1,4 @@
-<div class="wallet" *ngIf="show">
+<div class="wallet" *ngIf="!show">
   <div class="wallet-amount"
     style="background: url(&quot;https://vaydaiphat.com/images/0c1362843d4d8269bc0741c4f21ac884-backgroundWallet.svg&quot;);">
     <div class="cl-white fs-14">Liên hệ qua ứng dụng</div>
@@ -14,4 +14,4 @@
     </div>
   </div>
 </div>
-<app-chat *ngIf="show" [messageUser]="messages"></app-chat>
+<app-chat-user *ngIf="show" [messageUser]="messages"></app-chat-user>

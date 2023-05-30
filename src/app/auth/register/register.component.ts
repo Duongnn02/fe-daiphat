@@ -2,8 +2,10 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
-import { Register } from 'src/app/ts/config';
+import {Register, User} from 'src/app/ts/config';
 import { ToastrService } from 'ngx-toastr';
+import {AuthStateService} from "../../shared/auth-state.service";
+import {TokenService} from "../../shared/token.service";
 
 @Component({
   selector: 'app-register',
@@ -29,7 +31,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private _Router: Router,
     private authSer: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authState: AuthStateService,
+    private token: TokenService,
   ) {}
 
   ngAfterViewInit() {
@@ -124,16 +128,27 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     this.authSer.register(data).subscribe(res => {
-      console.log(data);
+      this.data = res;
+        this.responseHandler(this.data);
+        let user: User = {
+          id: this.data.user.id,
+          phone: this.data.user.phone,
+          role_id: this.data.user.role_id,
+          token: this.data.access_token,
+        };
+        localStorage.setItem('currentUser', JSON.stringify(user));
 
-      console.log(res);
-    },(error) => {
+      },(error) => {
       this.errors = error.error;
     },
     () => {
       this.registerForm.reset();
+      this.authState.setAuthState(true);
       this._Router.navigate(['/thong-tin-cua-toi']);
     }
     )
+  }
+  responseHandler(data: any) {
+    this.token.handleData(data.access_token);
   }
 }
