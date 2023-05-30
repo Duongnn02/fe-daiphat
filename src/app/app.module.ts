@@ -33,6 +33,7 @@ import { SignatureComponent } from './auth/my-profile/signature/signature.compon
 import { AdditionalInforComponent } from './auth/my-profile/additional-infor/additional-infor.component';
 import { SupportAdminComponent } from './support/support-admin/support-admin.component';
 import { SupportUserComponent } from './support/support-user/support-user.component';
+import { ModalComponent } from './auth/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { SupportUserComponent } from './support/support-user/support-user.compon
     SignatureComponent,
     AdditionalInforComponent,
     SupportAdminComponent,
-    SupportUserComponent
+    SupportUserComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

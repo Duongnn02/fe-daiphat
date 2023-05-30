@@ -9,6 +9,7 @@ import { LoanService } from '../service/loan.service';
 export class WalletComponent implements OnInit {
   loan: any;
   token: any;
+  user: any;
   constructor(private loanService: LoanService) { }
 
   ngOnInit(): void {
@@ -19,6 +20,7 @@ export class WalletComponent implements OnInit {
   getMoneyLoan() {
     this.loanService.getMoneyLoan(JSON.parse(this.token).id).subscribe(res => {
       this.loan = res.sum || 0;
+      this.user = res.user || '';
     });
   }
 }

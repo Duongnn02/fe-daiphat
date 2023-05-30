@@ -14,6 +14,9 @@ export class AuthService {
   register(data: Register): Observable<Register[]> {
     return this.http.post<Register[]>(environment.url + 'register', data);
   }
+  changePassword(data: any): Observable<any> {
+    return this.http.post(environment.url + 'change-password', data);
+  }
   login(data: Register): Observable<Register[]> {
     return this.http.post<Register[]>(environment.url + 'login', data);
   }
