@@ -53,7 +53,7 @@
   }
 }
 .button-custom .ant-btn {
-    width: 100%;
+    width: 100vh;
     height: 54px;
     border-radius: 12px;
 }
