@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home/home.component';
 import { MyInforComponent } from './auth/my-infor/my-infor.component';
@@ -42,6 +42,8 @@ const routes: Routes = [
   {
     path: 'home', component: HomeComponent,
   },
+  // { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+
   {
     path: 'cccd-cmnd', component: AddCccdCmndComponent,
     canActivate: [AuthGuard]
@@ -93,7 +95,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
