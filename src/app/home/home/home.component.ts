@@ -159,7 +159,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.userSer.show(JSON.parse(this.token).id).subscribe(res => {
+    this.userSer.show(JSON.parse(this.token)?.id).subscribe(res => {
       let loan: any;
       loan = res.user;
       if (loan.status_cmnd == undefined && loan.status_bank == undefined
