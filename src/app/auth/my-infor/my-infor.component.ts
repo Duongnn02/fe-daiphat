@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BaseSevice } from 'src/app/base.component';
 import { UserService } from 'src/app/service/user.service';
 
@@ -10,8 +11,8 @@ import { UserService } from 'src/app/service/user.service';
 export class MyInforComponent implements  OnInit {
   user: any;
   currentUser: any;
-  messageCccd: string = '';
-  messageInfor: string = '';
+  message$!: Observable<any>;
+  messageInfor$!: Observable<string>;
   meSuccess = 'Hoàn thành';
   constructor(private userSer: UserService) {
 
@@ -22,13 +23,8 @@ export class MyInforComponent implements  OnInit {
     this.user = JSON.parse(localStorage['currentUser']);
     const id  = parseInt(this.user.id);
 
-    this.userSer.show(id).subscribe(res => {
-      this.currentUser = res.user;
+    this.message$ = this.userSer.show(id);
 
-      if (this.currentUser.status_cmnd == 1) {
-        this.messageCccd = 'Hoàn thành';
-      }
-    })
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BaseSevice } from 'src/app/base.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { InforCccd } from 'src/app/ts/config';
@@ -29,7 +28,7 @@ export class AddCccdCmndComponent implements OnInit {
   imageBf: any;
   imageAt: any;
   imageFace: any;
-  disable: boolean = false;
+  disabled: boolean = false;
   file:any;
   constructor(
     private fb: FormBuilder,
@@ -59,10 +58,12 @@ export class AddCccdCmndComponent implements OnInit {
       this.imageFace = this.currentUser.face_cccd_cmnd ? environment.urlImg + this.currentUser.face_cccd_cmnd : '';
       if (this.name) {
         this.addFormControl['name'].disable();
-        this.disable = true;
       }
       if (this.cccd) {
         this.addFormControl['cccd_cmnd'].disable();
+      }
+      if (this.currentUser.status_cmnd == 1) {
+        this.disabled = true;
       }
     });
   }
@@ -119,6 +120,10 @@ export class AddCccdCmndComponent implements OnInit {
     reader.readAsDataURL(file);
   }
   addCccd() {
+    if (this.addCccdForm.invalid) {
+      this.disabled = true;
+      return;
+    }
     this.submitted = true;
     let cccd: InforCccd = {
       name: this.addCccdForm.value.name,

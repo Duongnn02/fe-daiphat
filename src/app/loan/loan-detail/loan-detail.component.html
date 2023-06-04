@@ -55,28 +55,30 @@
                   <div class="d-flex pv-16 justify-content-between"
                     style="border-bottom: 1px dashed rgb(254, 127, 45);">
                     <div>Số Hợp đồng:</div>
-                    <div class="fw-600 fs-14">{{data.contract_number || ''}}</div>
+                    <div class="fw-600 fs-14">{{data?.contract_number || ''}}</div>
                   </div>
                   <div class="d-flex pv-16 justify-content-between"
                     style="border-bottom: 1px dashed rgb(254, 127, 45);">
                     <div>Số tiền vay:</div>
-                    <div class="fw-600 fs-14">{{data.total_loan | number}}đ</div>
+                    <div class="fw-600 fs-14">{{data?.total_loan | number}}đ</div>
                   </div>
                   <div class="d-flex  pv-16 justify-content-between"
                     style="border-bottom: 1px dashed rgb(254, 127, 45);">
                     <div>Thời gian vay:</div>
-                    <div class="fw-600 fs-14">{{data.time}} tháng</div>
+                    <div class="fw-600 fs-14">{{data?.time}} tháng</div>
                   </div>
                   <div class="d-flex pt-16 justify-content-between">
                     <div>Trả nợ hàng tháng:</div>
-                    <div class="fw-600 fs-14">{{data.recurring_payment |number }}đ</div>
+                    <div class="fw-600 fs-14">{{data?.recurring_payment |number }}đ</div>
                   </div>
                   <div class="pb-16" style="border-bottom: 1px dashed rgb(254, 127, 45);"><em class="fs-13">(Đã bao
                       gồm tiền lãi hàng tháng là 210.000đ )</em></div>
                   <div class="d-flex pv-16 justify-content-between"
                     style="border-bottom: 1px dashed rgb(254, 127, 45);">
                     <div>Ngân hàng nhận tiền:</div>
-                    <div class="fw-600 fs-14">Geovany Wilderman</div>
+                    <div class="fw-600 fs-14" *ngIf="(user$ | async) as user">
+                      {{user.user.bank || ''}}
+                    </div>
                   </div>
                   <div class="d-flex pt-16 justify-content-between">
                     <div class="primary fw-500 fs-14">Hướng dẫn trả nợ:</div>

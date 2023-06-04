@@ -45,9 +45,10 @@
                           tin CMND/CCCD <span style="color:
                             rgb(4, 109,
                             181);">*</span></span>
-                        <div class="children-content-status"
-                          [ngStyle]="{'color': messageCccd ? 'rgb(33, 150, 83)' : ''}">{{
-                          messageCccd || 'Chưa hoàn thành'}}</div>
+                        <div class="children-content-status" *ngIf="(message$ | async) as data"
+                        [ngStyle]="{'color': data.user.status_cmnd == 1 ? 'rgb(33, 150, 83)' : ''}">{{
+                          data.user.status_cmnd == 1 ? 'Hoàn thành' : 'Chưa hoàn thành'}}
+                        </div>
                       </div>
                       <div class="children-content-description">Cho tôi biết
                         tình hình hiện tại</div>
@@ -62,8 +63,9 @@
                           tin cá nhân <span style="color:
                             rgb(4, 109,
                             181);">*</span></span>
-                        <div class="children-content-status">{{ messageInfor ?
-                          messageInfor : 'Chưa hoàn thành'}}</div>
+                        <div class="children-content-status" *ngIf="(message$ | async) as data"
+                        [ngStyle]="{'color': data.user.status_infor == 1 ? 'rgb(33, 150, 83)' : ''}">{{
+                          data.user.status_infor == 1 ? 'Hoàn thành' : 'Chưa hoàn thành'}}</div>
                       </div>
                       <div class="children-content-description">Cho
                         tôi biết tình hình hiện
@@ -80,8 +82,9 @@
                           thẻ ngân hàng <span style="color:
                             rgb(4, 109,
                             181);">*</span></span>
-                        <div class="children-content-status">Chưa
-                          hoàn thành</div>
+                         <div class="children-content-status" *ngIf="(message$ | async) as data"
+                         [ngStyle]="{'color': data.user.status_bank == 1 ? 'rgb(33, 150, 83)' : ''}">{{
+                           data.user.status_bank == 1 ? 'Hoàn thành' : 'Chưa hoàn thành'}}</div>
                       </div>
                       <div class="children-content-description">Thông
                         tin tài khoản vay</div>

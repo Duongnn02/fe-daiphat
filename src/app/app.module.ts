@@ -86,11 +86,11 @@ import {ChatUserComponent} from "./support/chat-user/chat-user.component";
       useClass: AuthInterceptor,
       multi: true,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingInterceptor,
-      multi: true
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: LoadingInterceptor,
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

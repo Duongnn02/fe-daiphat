@@ -48,10 +48,10 @@ export class LoginComponent implements OnInit {
     return this.userSubject.value;
   }
   login() {
+    if (this.loginForm.invalid) {
+      return;
+    }
     this.submitted = true;
-    // if (this.loginForm.invalid) {
-    //   return;
-    // }
 
     let data: Register = {
       phone: this.loginForm.value.phone,
@@ -68,14 +68,14 @@ export class LoginComponent implements OnInit {
       };
       localStorage.setItem('currentUser', JSON.stringify(user));
     },
-    (error) => {
-      this.errors = error.error;
-    },
-    () => {
-      this.authState.setAuthState(true);
-      this.loginForm.reset();
-      this.router.navigate(['home']);
-    });
+      (error) => {
+        this.errors = error.error;
+      },
+      () => {
+        this.authState.setAuthState(true);
+        this.loginForm.reset();
+        this.router.navigate(['home']);
+      });
   }
   responseHandler(data: any) {
     this.token.handleData(data.access_token);

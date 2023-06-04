@@ -30,10 +30,10 @@
               </div>
             </div>
         <div class="content-screen-stack" style="transform: translateX(0px); padding-bottom: 56px; padding-top: 54px;">
-          <ng-container *ngIf="list.role_id == 1">
+          <ng-container *ngIf="list?.role_id == 1">
             <app-support-admin [users] = users (backEmit)="goBack($event)" [show]="show"></app-support-admin>
           </ng-container>
-          <ng-container *ngIf="list.role_id == 0">
+          <ng-container *ngIf="list?.role_id == 0">
             <app-support-user></app-support-user>
           </ng-container>
 

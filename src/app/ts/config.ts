@@ -26,5 +26,6 @@ export interface Message {
 }
 export enum Enum {
   SUCCESS = 'success',
-  IS_ADMIN = 1
+  IS_ADMIN = 1,
+  DEFAULT_VALUE = 1,
 }

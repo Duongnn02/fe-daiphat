@@ -15,7 +15,6 @@ export class SupportUserComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
     this.readMessage();
-    console.log(this.user.id)
   }
   openChat() {
     this.show = true;
@@ -23,7 +22,6 @@ export class SupportUserComponent implements OnInit {
   readMessage() {
     this.chatService.readMessage(this.user.id).subscribe(res => {
       this.messages = res.message;
-      console.log(this.messages);
     })
   }
 }

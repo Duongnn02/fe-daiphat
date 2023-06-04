@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
    canvasHeight = 30;
    registerForm !: FormGroup;
    submitted = false;
+   isShow = false;
    data: any;
    errors: any;
 
@@ -110,7 +111,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     return this.registerForm.controls;
   }
   register(){
-
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.submitted = true;
     if(this.registerForm.invalid){
       return;
@@ -150,5 +153,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
   responseHandler(data: any) {
     this.token.handleData(data.access_token);
+  }
+  showPass() {
+    this.isShow = true;
+    console.log(this.isShow);
+
   }
 }

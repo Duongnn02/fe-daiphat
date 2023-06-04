@@ -26,4 +26,10 @@ export class UserService {
   sendMessage(data: Message): Observable<Message[]> {
     return this.http.post<Message[]>(environment.url + 'messages', data);
   }
+  storeInfor(data: any, id: any): Observable<any[]> {
+    return this.http.post<any[]>(environment.url + 'user-store/' + id, data);
+  }
+  storeBank(data: any, id: any): Observable<any[]> {
+    return this.http.post<any[]>(environment.url + 'user-store-bank/' + id, data);
+  }
 }

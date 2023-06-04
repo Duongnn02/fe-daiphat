@@ -13,8 +13,6 @@ export class WalletComponent implements OnInit {
   loan$!: Observable<any>;
   user$!: Observable<any>;
   isDataLoaded: boolean = false;
-  private loanCache: { [key: string]: Observable<any> } = {};
-  private userCache: { [key: string]: Observable<any> } = {};
 
   constructor(private loanService: LoanService) { }
 
@@ -25,15 +23,7 @@ export class WalletComponent implements OnInit {
 
   getMoneyLoan() {
     const userId = JSON.parse(this.token).id;
-    if (this.loanCache[userId]) {
-      // Trả về kết quả đã lưu nếu có trong cache
-      return this.loanCache[userId];
-    } else {
     this.loan$ = this.loanService.getMoneyLoan(userId);
     this.user$ = this.loanService.getMoneyLoan(userId);
-    this.loanCache[userId] = this.loan$;
-    this.userCache[userId] = this.user$;
-    this.isDataLoaded = true;
-    }
   }
 }
