@@ -21,7 +21,7 @@ export class ChatUserComponent implements OnInit {
   messageForm !: FormGroup;
   data: any;
   user: any;
-  show: boolean = true;
+  show: boolean = false;
   constructor(
     private fb: FormBuilder,
     private chatService: ChatService

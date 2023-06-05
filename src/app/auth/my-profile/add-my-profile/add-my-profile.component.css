@@ -18,7 +18,12 @@
 .anticon svg {
   display: inline-block;
 }
-
+.form-select{
+    height: 40px;
+    width: 100%;
+    border-radius: 10px;
+    border-color: #d9d9d9;
+}
 .anticon::before {
   display: none;
 }

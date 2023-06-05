@@ -37,6 +37,7 @@ import { ModalComponent } from './auth/modal/modal.component';
 import {ChatUserComponent} from "./support/chat-user/chat-user.component";
 import { ModalApprovalComponent } from './home/modal-approval/modal-approval.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { ModelWithdrawMoneyComponent } from './wallet/model-withdraw-money/model-withdraw-money.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -65,7 +66,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     SupportUserComponent,
     ModalComponent,
     ChatUserComponent,
-    ModalApprovalComponent
+    ModalApprovalComponent,
+    ModelWithdrawMoneyComponent
   ],
   imports: [
     BrowserModule,

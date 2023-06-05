@@ -17,10 +17,13 @@ export class SupportUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    this.readMessage();
   }
   openChat() {
-    this.showChat = true;
+    this.chatService.readMessage(this.user.id).subscribe(res => {
+      this.messages = res.message;
+      this.show = true;
+      this.backEmit.emit(this.show);
+    })
   }
   readMessage() {
     this.chatService.readMessage(this.user.id).subscribe(res => {

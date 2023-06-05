@@ -25,7 +25,7 @@
                       style="text-decoration: underline; margin-top: -2px;">đ
                     </div>
                     <div class="ml-24">
-                      <button class="btn btn-danger rut-tien" type="submit">Rút tiền</button>
+                      <button class="btn btn-danger rut-tien" type="submit" (click)="approval()">Rút tiền</button>
                     </div>
                   </div>
                   <div class="name-account-wallet" *ngIf="(user$ | async) as user">
@@ -132,3 +132,6 @@
     </div>
   </div>
 </div>
+<ng-template #withdrawMoney let-modal>
+  <app-model-withdraw-money></app-model-withdraw-money>
+</ng-template>

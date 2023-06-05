@@ -82,6 +82,7 @@ h4 {
   background-color: #D50000;
   display: flex;
   margin: auto;
+  border: red;
 }
 .message-notification {
   text-align: center;
