@@ -35,8 +35,11 @@ import { SupportAdminComponent } from './support/support-admin/support-admin.com
 import { SupportUserComponent } from './support/support-user/support-user.component';
 import { ModalComponent } from './auth/modal/modal.component';
 import {ChatUserComponent} from "./support/chat-user/chat-user.component";
+import { ModalApprovalComponent } from './home/modal-approval/modal-approval.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     RegisterComponent,
@@ -61,7 +64,8 @@ import {ChatUserComponent} from "./support/chat-user/chat-user.component";
     SupportAdminComponent,
     SupportUserComponent,
     ModalComponent,
-    ChatUserComponent
+    ChatUserComponent,
+    ModalApprovalComponent
   ],
   imports: [
     BrowserModule,
@@ -69,9 +73,10 @@ import {ChatUserComponent} from "./support/chat-user/chat-user.component";
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
     ToastrModule.forRoot(
       {
-        timeOut: 2000,
+        timeOut: 3000,
         positionClass: 'toast-top-center',
         preventDuplicates: true,
       }),
@@ -91,7 +96,6 @@ import {ChatUserComponent} from "./support/chat-user/chat-user.component";
     //   useClass: LoadingInterceptor,
     //   multi: true
     // }
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }

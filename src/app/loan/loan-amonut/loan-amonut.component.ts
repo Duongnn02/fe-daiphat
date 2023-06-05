@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoanService } from 'src/app/service/loan.service';
 import { UserService } from 'src/app/service/user.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-loan-amonut',
@@ -18,7 +19,9 @@ export class LoanAmonutComponent implements OnInit {
   constructor(
     private userSer: UserService,
     private router: Router,
-    private loanService: LoanService
+    private loanService: LoanService,
+    private toastr: ToastrService,
+
   ) { }
 
   ngOnInit(): void {
@@ -31,11 +34,17 @@ export class LoanAmonutComponent implements OnInit {
   handleLoan() {
     this.userSer.storeLoan(this.loan).subscribe(res => {
       this.data = res;
+      console.log(this.data)
       if (this.data.message = 'success') {
         localStorage.setItem('loan_amount', JSON.stringify(this.data.loans));
-        this.router.navigate(['/chi-tiet-khoan-vay']);
       }
-    });
+    }, err => {
+        this.toastr.error(err.error.message);
+        return;
+      },
+      () => {
+        this.router.navigate(['/chi-tiet-khoan-vay']);
+      });
 
   }
 

@@ -16,6 +16,7 @@ export class ChatUserComponent implements OnInit {
 
   @Input() messageUser: any;
   @Output() backEmit = new EventEmitter<boolean>();
+
   messages: any[] = [];
   messageForm !: FormGroup;
   data: any;

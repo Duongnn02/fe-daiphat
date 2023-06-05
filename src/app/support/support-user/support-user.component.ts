@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ChatService } from 'src/app/service/chat.service';
 
 @Component({
@@ -7,7 +7,10 @@ import { ChatService } from 'src/app/service/chat.service';
   styleUrls: ['./support-user.component.css']
 })
 export class SupportUserComponent implements OnInit {
-  show:boolean = false;
+  @Input() show: boolean = false;
+  @Output() backEmit = new EventEmitter<boolean>();
+
+  showChat:boolean = false;
   messages: any;
   user: any;
   constructor(private chatService: ChatService) { }
@@ -17,11 +20,13 @@ export class SupportUserComponent implements OnInit {
     this.readMessage();
   }
   openChat() {
-    this.show = true;
+    this.showChat = true;
   }
   readMessage() {
     this.chatService.readMessage(this.user.id).subscribe(res => {
       this.messages = res.message;
+      this.show = true;
+      this.backEmit.emit(this.show);
     })
   }
 }

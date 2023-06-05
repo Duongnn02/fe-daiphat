@@ -1,27 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoanService } from 'src/app/service/loan.service';
-import { UserService } from 'src/app/service/user.service';
-import { Loan } from 'src/app/ts/config';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LoanService} from 'src/app/service/loan.service';
+import {UserService} from 'src/app/service/user.service';
+import {Loan} from 'src/app/ts/config';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private userSer: UserService,
     private fb: FormBuilder,
-    private loanService: LoanService
-  ) { }
+    private loanService: LoanService,
+    private modalService: NgbModal
+  ) {
+  }
+
+  @ViewChild('approvalModal') approvalModal: any;
   button: any;
   token: any;
   data: any;
   loan: any;
   runIndex: any;
+  message: any;
   minMoney: number = 30000000;
   maxMoney: number = 1000000000;
   limit: number = 1000000;
@@ -43,6 +49,7 @@ export class HomeComponent implements OnInit {
     };
   month: any;
   loanForm!: FormGroup;
+
   ngOnInit(): void {
     this.token = localStorage.getItem('currentUser');
     this.button = 'Hồ sơ'
@@ -60,13 +67,24 @@ export class HomeComponent implements OnInit {
       time: ['', [Validators.required]],
       recurring_payment: ['', [Validators.required]],
     });
-
   }
+
+  ngAfterViewInit() {
+    this.loanService.loanApproved().subscribe(res => {
+      this.loanApproved();
+    });
+  }
+
+  openModal() {
+    this.modalService.open(this.approvalModal);
+  }
+
   getMoneyLoan() {
     this.loanService.getMoneyLoan(JSON.parse(this.token).id).subscribe(res => {
       this.loan = res.sum || 0;
     });
   }
+
   autoPlay() {
     for (let index = 0; index <= this.max; index++) {
       setTimeout((y) => {
@@ -78,6 +96,7 @@ export class HomeComponent implements OnInit {
     }
 
   }
+
   redrect() {
     if (this.token) {
       this.router.navigate(['/trang-ca-nhan']);
@@ -85,10 +104,12 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
+
   getValuerange(event: any) {
     this.rangMoney = event?.target?.value;
     this.calculator(this.rangMoney);
   }
+
   calculator(money: any) {
     switch (this.rangMonth) {
       case 6:
@@ -128,16 +149,19 @@ export class HomeComponent implements OnInit {
 
 
   }
+
   getMonth(event: any) {
     this.rangMonth = event;
     this.calculator(this.rangMoney);
 
 
   }
+
   paymentDf() {
     const interestDf = (this.minMoney * this.rateMonth.six) / 6;
     this.payments = Math.round(this.minMoney / 6 + interestDf);
   }
+
   changeMoneyUp() {
     if (this.rangMoney == this.maxMoney) {
       return;
@@ -146,6 +170,7 @@ export class HomeComponent implements OnInit {
     this.rangMoney = Number(this.rangMoney) + this.limit;
     this.calculator(this.rangMoney);
   }
+
   changeMoneyDown() {
     if (this.rangMoney == this.minMoney) {
       return;
@@ -154,6 +179,7 @@ export class HomeComponent implements OnInit {
     this.rangMoney = Number(this.rangMoney) - this.limit;
     this.calculator(this.rangMoney);
   }
+
   storeLoanPackage() {
     if (this.token == null) {
       this.router.navigate(['/login']);
@@ -162,8 +188,8 @@ export class HomeComponent implements OnInit {
     this.userSer.show(JSON.parse(this.token)?.id).subscribe(res => {
       let loan: any;
       loan = res.user;
-      if (loan.status_cmnd == undefined && loan.status_bank == undefined
-        && loan.status_infor == undefined) {
+      if (loan.status_cmnd == undefined || loan.status_bank == undefined
+        || loan.status_infor == undefined) {
         this.router.navigate(['/thong-tin-cua-toi']);
       } else {
         let loan: Loan = {
@@ -179,5 +205,14 @@ export class HomeComponent implements OnInit {
       }
     })
 
+  }
+
+  loanApproved() {
+    this.loanService.loanApproved().subscribe(res => {
+      if (res.loan.viewed == 0 && res.loan.status == 2) {
+        this.message = res.message;
+        this.openModal()
+      }
+    })
   }
 }

@@ -34,7 +34,7 @@
             <app-support-admin [users] = users (backEmit)="goBack($event)" [show]="show"></app-support-admin>
           </ng-container>
           <ng-container *ngIf="list?.role_id == 0">
-            <app-support-user></app-support-user>
+            <app-support-user (backEmit)="goBack($event)" [show]="show"></app-support-user>
           </ng-container>
 
         </div>
