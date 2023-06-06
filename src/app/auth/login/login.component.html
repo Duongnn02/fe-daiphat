@@ -297,6 +297,12 @@
                     loginFormControl['phone'].errors?.['minlength']">
                       Số điện thoại phải lớn hơn 8 số
                     </span>
+                    <span class="text-danger" style="margin-bottom: -19px;
+                      display: flex;"
+                          *ngIf="errors">
+                      {{errors?.error.phone}}
+                    </span>
+
                   </div>
                   <div class="ant-form-item">
                     <div class="ant-row ant-form-item-row">
@@ -352,6 +358,11 @@
                     display: flex;" *ngIf="loginFormControl['password'].touched &&
                     loginFormControl['password'].errors?.['minlength']">
                       Mật khẩu phải từ 6 - 16 chữ số
+                    </span>
+                    <span class="text-danger" style="margin-bottom: -19px;
+                      display: flex;"
+                          *ngIf="errors">
+                      {{errors?.error.password}}
                     </span>
                   </div>
 

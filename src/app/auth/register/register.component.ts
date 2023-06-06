@@ -89,8 +89,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     this.context.stroke();
   }
   this.rightCode = showNum.join('');
-
-
+    this.rightCode = this.rightCode.toUpperCase();
   }
 
   randomColor () {
@@ -124,7 +123,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       return;
     }
 
-
     let data: Register = {
       phone: this.registerForm.value.phone,
       password: this.registerForm.value.password,
@@ -143,7 +141,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
       },(error) => {
       this.errors = error.error;
-    },
+      },
     () => {
       this.registerForm.reset();
       this.authState.setAuthState(true);

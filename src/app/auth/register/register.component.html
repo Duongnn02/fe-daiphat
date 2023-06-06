@@ -359,6 +359,7 @@
                       *ngIf="errors">
                       {{errors?.error.phone}}
                     </span>
+
                   </div>
                   <div class="ant-form-item">
                     <div class="ant-row ant-form-item-row">
@@ -427,6 +428,11 @@
                       *ngIf="registerFormControl['password'].touched &&
                       registerFormControl['password'].errors?.['minlength']">
                       Mật khẩu phải từ 6 - 16 chữ số
+                    </span>
+                    <span class="text-danger" style="margin-bottom: -19px;
+                      display: flex;"
+                          *ngIf="errors">
+                      {{errors?.error.password}}
                     </span>
                   </div>
                   <div class="d-flex justify-content-between">

@@ -1,1 +1,4 @@
 @import 'ngx-toastr/toastr';
+.text-danger {
+  color: red;
+}
