@@ -2,10 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Enum, Message, Register } from "../../ts/config";
 import { environment } from "../../../environments/environment";
-import { WebsocketService } from 'src/app/service/websocket.service';
 import { ChatService } from 'src/app/service/chat.service';
 import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
 
 @Component({
   selector: 'app-chat-user',
