@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getMoneyLoan() {
-    this.loanService.getMoneyLoan(JSON.parse(this.token).id).subscribe(res => {
+    this.loanService.getMoneyLoan(JSON.parse(this.token)?.id).subscribe(res => {
       this.loan = res.sum || 0;
     });
   }

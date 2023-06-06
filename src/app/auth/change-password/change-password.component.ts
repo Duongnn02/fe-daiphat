@@ -39,11 +39,10 @@ export class ChangePasswordComponent implements OnInit {
       new_password: newPassword
     }
     this.authService.changePassword(data).subscribe(res => {
-
+        this.toastr.error(res.message);
     },(error) => {
       this.errors = error.error;
-      console.log(error);
-
+        this.toastr.error(this.errors.message);
     },
     () => {
       localStorage.clear();

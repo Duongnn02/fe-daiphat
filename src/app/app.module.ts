@@ -18,7 +18,6 @@ import { TokenService } from './shared/token.service';
 import { AuthStateService } from './shared/auth-state.service';
 import { SupportIndexComponent } from './support/support-index/support-index.component';
 import { ChatComponent } from './support/chat/chat.component';
-import { WebsocketService } from './service/websocket.service';
 import { WalletComponent } from './wallet/wallet.component';
 import { LoanAmonutComponent } from './loan/loan-amonut/loan-amonut.component';
 import { LoanDetailComponent } from './loan/loan-detail/loan-detail.component';
@@ -87,7 +86,6 @@ import { ModelWithdrawMoneyComponent } from './wallet/model-withdraw-money/model
   providers: [
     TokenService,
     AuthStateService,
-    WebsocketService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

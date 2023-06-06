@@ -16,10 +16,11 @@ export class TokenService {
   // Verify the token
   isValidToken() {
     const token = this.getToken();
-    console.log(token);
 
     if (token) {
       const payload = this.payload(token);
+      console.log(payload);
+
       if (payload) {
         return Object.values(this.issuer).indexOf(payload.iss) > -1
           ? true
@@ -31,7 +32,7 @@ export class TokenService {
   }
   payload(token: any) {
     const PassportPayload = token.split('.')[1];
-    return JSON.parse(atob(PassportPayload));
+    return PassportPayload;
   }
   // User state based on valid token
   isLoggedIn() {
