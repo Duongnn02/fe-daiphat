@@ -2,3 +2,6 @@
 .text-danger {
   color: red;
 }
+html {
+  zoom: 0 !important;
+}
