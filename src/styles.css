@@ -2,8 +2,3 @@
 .text-danger {
   color: red;
 }
-@media screen and (min-width: 480px){
-  .layout {
-    height: 100vh;
-  }
-}
