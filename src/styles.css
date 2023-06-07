@@ -2,3 +2,6 @@
 .text-danger {
   color: red;
 }
+.layout {
+  max-height: 667px;
+}
