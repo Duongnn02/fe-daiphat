@@ -132,6 +132,6 @@
     </div>
   </div>
 </div>
-<ng-template #withdrawMoney let-modal>
-  <app-model-withdraw-money></app-model-withdraw-money>
+<ng-template #withdrawMoney let-modal *ngIf="(loan$ | async) as loan">
+  <app-model-withdraw-money [money]="loan.sum"></app-model-withdraw-money>
 </ng-template>

@@ -5,3 +5,7 @@
 html {
   zoom: 0 !important;
 }
+.modal-open {
+  padding: 0!important;
+  display: inline;
+}

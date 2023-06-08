@@ -20,6 +20,11 @@ body {
   display: flex;
   margin: auto;
   justify-content: center;
+  background: bisque;
+  padding: 4px;
+  margin-bottom: 11px;
+  font-size: 17px;
+  font-weight: 600;
 }
 .card {
   position: relative;
