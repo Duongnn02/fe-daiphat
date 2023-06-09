@@ -30,4 +30,7 @@ export class AuthService {
 
     return this.http.post<InforCccd[]>(environment.url + 'uploadCmnd/' + id, formData);
   }
+  getLogo(): Observable<any> {
+    return this.http.get(environment.url + 'get-logo');
+  }
 }

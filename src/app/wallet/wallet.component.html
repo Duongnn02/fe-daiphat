@@ -25,17 +25,28 @@
                       style="text-decoration: underline; margin-top: -2px;">đ
                     </div>
                     <div class="ml-24">
-                      <button class="btn btn-danger rut-tien" type="submit" (click)="approval()">Rút tiền</button>
+                      <button class="btn btn-danger rut-tien" type="submit" [disabled]="loan.sum == 0" (click)="approval()">Rút tiền</button>
                     </div>
                   </div>
                   <div class="name-account-wallet" *ngIf="(user$ | async) as user">
                     {{user.user.name || ''}}
                   </div>
                 </div>
-                <div class="content-wallet">
-                  <div class="text-align-center"><img
+                <div class="content-wallet" *ngIf="(loan$ | async) as loan">
+                  <div class="text-align-center" *ngIf="loan.loans[0]?.type == 0">
+                    <img
                       src="https://vaydaiphat.com/images/450c452726b72e140803553c99fc7387-EmptyIcon.svg" alt="">
-                    <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">Bạn chưa có yêu cầu rút tiền nào</div>
+                    <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">
+                      Bạn chưa có yêu cầu rút tiền nào
+                    </div>
+                  </div>
+                  <div class="text-align-center" *ngIf="loan.loans[0]?.type == 1 || loan.loans[0]?.type == 2 || loan.loans[0]?.type == 3">
+                    <div class="cl-white fs-32 fw-600 d-flex" style="cursor: pointer;">
+                      {{loan.sum | number:'1.0-0'}}
+                    </div>
+                    <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">
+                      {{loan.loans[0]?.type == 1 ? 'Từ chối' : loan.loans[0]?.type == 2 ? 'Thành công' : loan.loans[0]?.type == 3 ? 'đang chờ duyệt' : ''}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -133,5 +144,5 @@
   </div>
 </div>
 <ng-template #withdrawMoney let-modal *ngIf="(loan$ | async) as loan">
-  <app-model-withdraw-money [money]="loan.sum"></app-model-withdraw-money>
+  <app-model-withdraw-money [money]="loan"></app-model-withdraw-money>
 </ng-template>

@@ -7,5 +7,6 @@ html {
 }
 .modal-open {
   padding: 0!important;
-  display: inline;
+  display: inline !important;
+  overflow: auto !important;
 }

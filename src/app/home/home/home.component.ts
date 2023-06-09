@@ -1,10 +1,12 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {LoanService} from 'src/app/service/loan.service';
-import {UserService} from 'src/app/service/user.service';
-import {Loan} from 'src/app/ts/config';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoanService } from 'src/app/service/loan.service';
+import { UserService } from 'src/app/service/user.service';
+import { Loan } from 'src/app/ts/config';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/service/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +19,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private userSer: UserService,
     private fb: FormBuilder,
     private loanService: LoanService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authService: AuthService
   ) {
   }
 
   @ViewChild('approvalModal') approvalModal: any;
   button: any;
   token: any;
+  logo: any;
   data: any;
   loan: any;
   runIndex: any;
@@ -61,6 +65,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     });
     this.paymentDf();
+    this.getLogo();
     this.getMoneyLoan();
     this.loanForm = this.fb.group({
       total_loan: ['', [Validators.required]],
@@ -74,7 +79,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.loanApproved();
     });
   }
-
+  getLogo() {
+    this.authService.getLogo().subscribe(res => {
+      this.logo = environment.urlImg + res.logo.logo
+    });
+  }
   openModal() {
     this.modalService.open(this.approvalModal);
   }
