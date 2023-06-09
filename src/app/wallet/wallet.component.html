@@ -33,7 +33,7 @@
                   </div>
                 </div>
                 <div class="content-wallet" *ngIf="(loan$ | async) as loan">
-                  <div class="text-align-center" *ngIf="loan.loans[0]?.type == 0">
+                  <div class="text-align-center" *ngIf="loan.loans[0]?.type == 0 || loan.sum == 0">
                     <img
                       src="https://vaydaiphat.com/images/450c452726b72e140803553c99fc7387-EmptyIcon.svg" alt="">
                     <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">
