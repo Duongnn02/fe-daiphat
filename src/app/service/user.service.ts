@@ -32,4 +32,9 @@ export class UserService {
   storeBank(data: any, id: any): Observable<any[]> {
     return this.http.post<any[]>(environment.url + 'user-store-bank/' + id, data);
   }
+  uploadAdditional(data: any, id: any): Observable<any[]> {
+    let formData = new FormData();
+    formData.append('additional_information', data.additional_information);
+    return this.http.post<any[]>(environment.url + 'upload-additional/' + id, formData);
+  }
 }

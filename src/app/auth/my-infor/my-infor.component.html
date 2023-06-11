@@ -113,8 +113,9 @@
                     <div class="children-content-info">
                       <div class="children-content-title"><span>Thông
                           tin bổ sung</span>
-                        <div class="children-content-status">Chưa
-                          hoàn thành</div>
+                          <div class="children-content-status" *ngIf="(message$ | async) as data"
+                          [ngStyle]="{'color': data.user.status_additional == 1 ? 'rgb(33, 150, 83)' : ''}">{{
+                            data.user.status_additional == 1 ? 'Hoàn thành' : 'Chưa hoàn thành'}}</div>
                       </div>
                       <div class="children-content-description">Tăng
                         khả năng xét duyệt thành
