@@ -13,10 +13,12 @@ export class SupportUserComponent implements OnInit {
   showChat:boolean = false;
   messages: any;
   user: any;
+  data: any;
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.getAppSupport();
   }
   openChat() {
     this.chatService.readMessage(this.user.id).subscribe(res => {
@@ -30,6 +32,12 @@ export class SupportUserComponent implements OnInit {
       this.messages = res.message;
       this.show = true;
       this.backEmit.emit(this.show);
+    })
+  }
+
+  getAppSupport() {
+    this.chatService.getAppSupport().subscribe(res => {
+      this.data = res;
     })
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LoanService} from "../../service/loan.service";
 
 @Component({
   selector: 'app-my-loan',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-loan.component.css']
 })
 export class MyLoanComponent implements OnInit {
-
-  constructor() { }
+  data: any;
+  constructor(private loanSer: LoanService) { }
 
   ngOnInit(): void {
+    this.getInforpay();
+  }
+  getInforpay() {
+    this.loanSer.getInforPay().subscribe(res => {
+      this.data = res;
+    })
   }
 
 }

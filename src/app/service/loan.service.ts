@@ -25,5 +25,7 @@ export class LoanService {
   handleWithdrawl(id: any): Observable<any> {
     return this.http.get(environment.url + 'handle-withdrawl/' + id)
   }
-
+  getInforPay() {
+    return this.http.get(environment.url + 'get-infor-pay');
+  }
 }

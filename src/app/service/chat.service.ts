@@ -31,6 +31,9 @@ export class ChatService {
     return this.http.get(environment.url + 'messages-show/' + id);
  }
 
+ getAppSupport() {
+    return this.http.get(environment.url + 'get-app');
+ }
 
 
 }
