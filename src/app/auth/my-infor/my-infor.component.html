@@ -99,8 +99,9 @@
                           ký viết tay <span style="color:
                             rgb(4, 109,
                             181);">*</span></span>
-                        <div class="children-content-status">Chưa
-                          hoàn thành</div>
+                        <div class="children-content-status" *ngIf="(message$ | async) as data"
+                             [ngStyle]="{'color': data.user.status_signature == 1 ? 'rgb(33, 150, 83)' : ''}">{{
+                          data.user.status_signature == 1 ? 'Hoàn thành' : 'Chưa hoàn thành'}}</div>
                       </div>
                       <div class="children-content-description">Ký
                         tên trước khi vay</div>

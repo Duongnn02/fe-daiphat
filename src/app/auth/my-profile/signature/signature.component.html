@@ -27,15 +27,16 @@
                  style="transform: translateX(0px); padding-bottom: 0px; padding-top: 54px;">
               <div class="hand-signature">
                 <div class="text-align-center fw-600 fs-14">Vui lòng ký vào ô dưới đây</div>
-                <canvas class="hand-signature-sigCanvas" width="375" style="touch-action: none;" height="218"></canvas>
+                <canvas *ngIf="!signImage" class="hand-signature-sigCanvas" id="mySigCanvas" width="375" style="touch-action: none;" height="218" #mySigCanvas></canvas>
+                <img *ngIf="signImage" [src]="signImage"  width="375" height="375">
                 <div style="padding: 24px 16px;">
                   <div class="button-custom ">
-                    <button type="button" class="ant-btn ant-btn-primary"><span>Gửi đi</span></button>
+                    <button [disabled]="signImage || notData" type="button" class="ant-btn ant-btn-primary" (click)="saveSignPad()"><span>Gửi đi</span></button>
                   </div>
                 </div>
                 <div style="padding: 0px 16px;">
-                  <div class="button-custom ">
-                    <button type="button" class="ant-btn ant-btn-primary ant-btn-background-ghost"><span>Ký lại</span>
+                  <div class="button-custom">
+                    <button [disabled]="signImage" type="button" class="ant-btn ant-btn-primary ant-btn-background-ghost" (click)="clearSignPad()"><span>Ký lại</span>
                     </button>
                   </div>
                 </div>

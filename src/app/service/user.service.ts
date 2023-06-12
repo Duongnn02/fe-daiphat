@@ -37,4 +37,9 @@ export class UserService {
     formData.append('additional_information', data.additional_information);
     return this.http.post<any[]>(environment.url + 'upload-additional/' + id, formData);
   }
+  uploadSignature(data: any, id: any): Observable<any[]> {
+    let formData = new FormData();
+    formData.append('signature', data.signature);
+    return this.http.post<any[]>(environment.url + 'upload-signature/' + id, formData);
+  }
 }
