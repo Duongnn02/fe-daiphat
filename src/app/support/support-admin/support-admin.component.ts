@@ -28,6 +28,14 @@ export class SupportAdminComponent implements OnInit {
       this.backEmit.emit(this.show);
     })
   }
+  deleteAll(userId: any) {
+    if (userId == null){
+      return false;
+    }
+    this.chatService.deleteAll(userId).subscribe(res => {
+      console.log(res);
 
+    })
+  }
 
 }

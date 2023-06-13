@@ -34,6 +34,8 @@ export class ChatService {
  getAppSupport() {
     return this.http.get(environment.url + 'get-app');
  }
-
+ deleteAll(userId: any) {
+  return this.http.delete(environment.url + 'messages-delete-all/' + userId);
+ }
 
 }
