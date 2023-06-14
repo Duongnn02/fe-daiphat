@@ -33,9 +33,12 @@ export class SupportAdminComponent implements OnInit {
       return false;
     }
     this.chatService.deleteAll(userId).subscribe(res => {
-      console.log(res);
-
+      this.getUser();
     })
   }
-
+  getUser() {
+    this.chatService.getMessage().subscribe(res => {
+      this.users = res.users;
+    })
+  }
 }

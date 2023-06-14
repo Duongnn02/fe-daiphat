@@ -6,7 +6,7 @@
         {{user.phone}}
       </div>
       <div class="message">
-        {{user.latest_message.message}}🍑
+        {{user.latest_message?.message}}🍑
       </div>
     </div>
     <div class="icon-delete-mess" (click)="deleteAll(user.id)">

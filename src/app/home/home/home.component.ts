@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   getLogo() {
     this.authService.getLogo().subscribe(res => {
-      this.logo = environment.urlImg + res.logo.logo
+      this.logo = environment.urlImg + res?.logo.logo
     });
   }
   openModal() {
