@@ -20,6 +20,8 @@ export class ChatComponent implements OnInit {
   errors: any;
   messageForm !: FormGroup;
   data: any;
+  image: any;
+  file: any;
   show: boolean = false;
   constructor(
     private fb: FormBuilder,
@@ -30,6 +32,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.messageForm = this.fb.group({
       message: ['', [Validators.required]],
+      photo: [''],
     });
     this.getMessage();
 
@@ -73,5 +76,29 @@ export class ChatComponent implements OnInit {
   }
   goBack() {
     this.backEmit.emit(this.show);
+  }
+  sendImage(event: any) {
+    this.file = event.target.files ? event.target.files[0] : '';
+    console.log(this.file)
+    this.messageForm.patchValue({
+      image: this.file
+    });
+
+    this.messageForm.get('photo')?.updateValueAndValidity();
+
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.image = reader.result as string;
+    }
+    reader.readAsDataURL(this.file);
+
+  }
+  removeImage() {
+    this.file = undefined;
+    this.image = undefined;
+    this.messageForm.patchValue({
+      image: ''
+    });
   }
 }
