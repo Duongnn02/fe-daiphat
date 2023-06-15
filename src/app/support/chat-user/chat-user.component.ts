@@ -19,6 +19,9 @@ export class ChatUserComponent implements OnInit {
   messageForm !: FormGroup;
   data: any;
   user: any;
+  image: any;
+  file: any;
+  url = environment.urlImg;
   show: boolean = false;
   constructor(
     private fb: FormBuilder,
@@ -30,7 +33,8 @@ export class ChatUserComponent implements OnInit {
     this.user = JSON.parse(localStorage['currentUser']);
 
     this.messageForm = this.fb.group({
-      message: ['', [Validators.required]],
+      message: [''],
+      photo: [''],
     });
     this.getMessage();
 
@@ -51,16 +55,22 @@ export class ChatUserComponent implements OnInit {
 
 
   }
+  get isButtonDisabled(): boolean {
+    // @ts-ignore
+    return !(this.messageForm.get('message').value || this.messageForm.get('photo').value);
+  }
   handleMessage() {
     let message: Message = {
       message: this.messageForm.value.message,
-      to_user: Enum.IS_ADMIN
+      to_user: Enum.IS_ADMIN,
+      photo: this.messageForm.value.photo
     }
 
     this.chatService.sendMessage(message).subscribe(res => {
       this.data = res;
       if (this.data.status == Enum.SUCCESS) {
         this.messageForm.reset();
+        this.removeImage();
       }
     });
 
@@ -74,5 +84,28 @@ export class ChatUserComponent implements OnInit {
   }
   goBack() {
     this.backEmit.emit(this.show);
+  }
+  sendImage(event: any) {
+    this.file = event.target.files ? event.target.files[0] : '';
+    this.messageForm.patchValue({
+      photo: this.file
+    });
+
+    this.messageForm.get('photo')?.updateValueAndValidity();
+
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.image = reader.result as string;
+    }
+    reader.readAsDataURL(this.file);
+
+  }
+  removeImage() {
+    this.file = undefined;
+    this.image = undefined;
+    this.messageForm.patchValue({
+      image: ''
+    });
   }
 }

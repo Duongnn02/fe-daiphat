@@ -24,7 +24,11 @@ export class ChatService {
   }
 
   sendMessage(data: Message): Observable<Message[]> {
-    return this.http.post<Message[]>(environment.url + 'messages-store', data);
+    let formData = new FormData();
+    formData.append('message', data.message);
+    formData.append('to_user', data.to_user);
+    formData.append('photo', data?.photo);
+    return this.http.post<Message[]>(environment.url + 'messages-store', formData);
   }
 
  readMessage(id: any): Observable<any> {

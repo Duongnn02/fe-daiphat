@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import { Enum, Message, Register } from "../../ts/config";
 import { environment } from "../../../environments/environment";
 import { ChatService } from 'src/app/service/chat.service';
@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
   image: any;
   file: any;
   show: boolean = false;
+  url = environment.urlImg;
   constructor(
     private fb: FormBuilder,
     private chatService: ChatService
@@ -31,9 +32,11 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageForm = this.fb.group({
-      message: ['', [Validators.required]],
+      message: [''],
       photo: [''],
     });
+    console.log(this.messageForm.value.message)
+    console.log(this.messageForm.value.photo)
     this.getMessage();
 
     const echo = new Echo({
@@ -53,16 +56,22 @@ export class ChatComponent implements OnInit {
 
 
   }
+  get isButtonDisabled(): boolean {
+    // @ts-ignore
+    return !(this.messageForm.get('message').value || this.messageForm.get('photo').value);
+  }
   handleMessage() {
     let message: Message = {
       message: this.messageForm.value.message,
-      to_user: this.user.id
+      to_user: this.user.id,
+      photo: this.messageForm.value.photo
     }
-
+    console.log(message)
     this.chatService.sendMessage(message).subscribe(res => {
       this.data = res;
       if (this.data.status == Enum.SUCCESS) {
         this.messageForm.reset();
+        this.removeImage();
       }
     });
 
@@ -79,9 +88,8 @@ export class ChatComponent implements OnInit {
   }
   sendImage(event: any) {
     this.file = event.target.files ? event.target.files[0] : '';
-    console.log(this.file)
     this.messageForm.patchValue({
-      image: this.file
+      photo: this.file
     });
 
     this.messageForm.get('photo')?.updateValueAndValidity();

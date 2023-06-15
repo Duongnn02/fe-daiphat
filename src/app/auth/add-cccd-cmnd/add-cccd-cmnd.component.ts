@@ -132,6 +132,8 @@ export class AddCccdCmndComponent implements OnInit {
       after_cccd_cmnd: this.addCccdForm.value.after_cccd_cmnd,
       face_cccd_cmnd: this.addCccdForm.value.face_cccd_cmnd
     }
+    console.log(cccd)
+
     this.data = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
     this.authSer.uploadCccd(cccd, this.data.id).subscribe(res => {

@@ -11,9 +11,13 @@
       <!-- <div class="time">
         Today at 11:41
       </div> -->
-      <div *ngFor="let msg of messageUser"
-           class="message {{user.id != msg.from_user ? 'parker' : 'stark'}} ">
-        {{msg.message}}
+      <div *ngFor="let msg of messageUser" >
+        <div *ngIf="msg.message" class="message {{user.id != msg.from_user ? 'parker' : 'stark'}} ">
+          <p> {{msg?.message}}</p>
+        </div>
+        <div *ngIf="msg.photo" class="message {{user.id != msg.from_user ? 'parker-photo' : 'stark-photo'}} ">
+          <img *ngIf="msg?.photo" [src]="url + msg?.photo" width="100%" alt="">
+        </div>
       </div>
       <div class="image-container">
         <div *ngIf="image" class="overlay">
@@ -63,9 +67,8 @@
           </g>
         </svg>
         <input type="text" formControlName="message"/>
-        <input formControlName="photo" (change)="sendImage($event)" style="display: none" type="file" accept="image/*"
-               #send_image/>
-        <button class="send-message" [disabled]="messageForm.invalid" (click)="handleMessage()">Gửi</button>
+        <input (change)="sendImage($event)" style="display: none" type="file" accept="image/*"#send_image/>
+        <button class="send-message" [disabled]="isButtonDisabled" (click)="handleMessage()">Gửi</button>
       </div>
     </div>
   </div>
