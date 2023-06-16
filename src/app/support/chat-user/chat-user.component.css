@@ -309,4 +309,7 @@ body, html {
   right: 0;
   position: absolute;
 }
-
+.time {
+  font-size: 10px !important;
+  text-align: right;
+}

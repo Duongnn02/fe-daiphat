@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { AuthStateService } from 'src/app/shared/auth-state.service';
 import { TokenService } from 'src/app/shared/token.service';
 import { Register, User } from 'src/app/ts/config';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     private authSer: AuthService,
     private authState: AuthStateService,
     private token: TokenService,
+    private toastr: ToastrService,
 
   ) { }
 
@@ -70,6 +72,13 @@ export class LoginComponent implements OnInit {
     },
       (error) => {
         this.errors = error.error;
+        if (this.errors.error.phone) {
+          this.toastr.error(this.errors.error.phone);
+        }else if (this.errors.error.password) {
+          this.toastr.error(this.errors.error.password);
+        } else {
+          this.toastr.error(this.errors.error);
+        }
       },
       () => {
         this.authState.setAuthState(true);

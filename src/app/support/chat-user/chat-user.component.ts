@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import { Enum, Message, Register } from "../../ts/config";
 import { environment } from "../../../environments/environment";
 import { ChatService } from 'src/app/service/chat.service';
@@ -14,6 +14,7 @@ export class ChatUserComponent implements OnInit {
 
   @Input() messageUser: any;
   @Output() backEmit = new EventEmitter<boolean>();
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
 
   messages: any[] = [];
   messageForm !: FormGroup;
@@ -21,6 +22,7 @@ export class ChatUserComponent implements OnInit {
   user: any;
   image: any;
   file: any;
+  isSending: boolean = false;
   url = environment.urlImg;
   show: boolean = false;
   constructor(
@@ -52,26 +54,52 @@ export class ChatUserComponent implements OnInit {
         this.messageUser.push(res.message);
         console.log('Chat Event Data : ', this.messageUser);
       });
-
-
   }
-  get isButtonDisabled(): boolean {
+  ngAfterViewInit() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    if (this.chatContainer) {
+      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    }
+  }
+  get isButtonDisabled() {
     // @ts-ignore
-    return !(this.messageForm.get('message').value || this.messageForm.get('photo').value);
+    if (this.messageForm.get('photo').value) {
+      return false;
+    }
+    if (this.messageForm.invalid) {
+      return true;
+    }
+  }
+  noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
   }
   handleMessage() {
+    if (this.isSending) {
+      return; // Khi tin nhắn đang được gửi, không thực hiện hành động gửi mới
+    }
+    this.isSending = true; // Đánh dấu tin nhắn đang được gửi
+
+    const messageValue = this.messageForm.value?.message;
+
     let message: Message = {
-      message: this.messageForm.value.message,
-      to_user: Enum.IS_ADMIN,
-      photo: this.messageForm.value.photo
+      message: messageValue?.trim() !== '' ? messageValue : '' ,
+      to_user: this.user.id,
+      photo: this.messageForm.value?.photo
     }
 
     this.chatService.sendMessage(message).subscribe(res => {
       this.data = res;
-      if (this.data.status == Enum.SUCCESS) {
-        this.messageForm.reset();
+      if (this.data?.status == Enum.SUCCESS) {
+        this.messageForm.reset({ message: '', photo: '' });
         this.removeImage();
       }
+      this.isSending = false; // Đánh dấu tin nhắn đã được gửi
+
     });
 
   }

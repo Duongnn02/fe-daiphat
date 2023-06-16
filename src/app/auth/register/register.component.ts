@@ -140,7 +140,13 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         localStorage.setItem('currentUser', JSON.stringify(user));
 
       },(error) => {
-      this.errors = error.error;
+        this.errors = error.error;
+        if (this.errors.error.phone) {
+          this.toastr.error(this.errors.error.phone);
+        }
+        if (this.errors.error.password) {
+          this.toastr.error(this.errors.error.password);
+        }
       },
     () => {
       this.registerForm.reset();

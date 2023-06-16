@@ -41,5 +41,7 @@ export class ChatService {
  deleteAll(userId: any) {
   return this.http.delete(environment.url + 'messages-delete-all/' + userId);
  }
-
+  delete(id: any) {
+    return this.http.delete(environment.url + 'messages-delete/' + id);
+  }
 }

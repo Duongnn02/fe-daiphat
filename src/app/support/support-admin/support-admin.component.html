@@ -1,7 +1,7 @@
 <div class="contacts" *ngIf="!show">
-  <div class="contact" *ngFor="let user of users" >
+  <div class="contact" *ngFor="let user of users" (click)="readMessage(user.id)" >
     <div class="pic rogers"></div>
-    <div (click)="readMessage(user.id)">
+    <div >
       <div class="name">
         {{user.phone}}
       </div>

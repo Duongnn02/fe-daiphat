@@ -7,17 +7,62 @@
         {{user.phone}}
       </div>
     </div>
-    <div class="messages" id="chat">
+    <div class="messages" id="chat" #chatContainer>
       <!-- <div class="time">
         Today at 11:41
       </div> -->
-      <div *ngFor="let msg of messageUser" >
-        <div *ngIf="msg.message" class="message {{user.id != msg.from_user ? 'parker' : 'stark'}} ">
-          <p> {{msg?.message}}</p>
+      <div *ngFor="let msg of messageUser">
+        <div *ngIf="msg.message" style="display: flex" >
+          <div class="message {{user.id != msg.from_user ? 'parker' : 'stark'}} ">
+            <p> {{msg?.message}}</p>
+            <div class="time">
+              {{msg.created_at | date:'shortTime'}}
+            </div>
+          </div>
+          <div class="options" *ngIf="msg.message">
+            <div class="tipClick" (click)="showTooltip(msg.id)">
+            <svg class="" width="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <circle cx="6.5" cy="12" r="1.5" fill="#000000"></circle>
+                <circle cx="12" cy="12" r="1.5" fill="#000000"></circle>
+                <circle cx="17.5" cy="12" r="1.5" fill="#000000"></circle>
+              </g>
+            </svg>
+            <div class="tooltipT" *ngIf="msg.showDeleteTooltip">
+              <span class="tooltip-text" (click)="deleteMessage(msg.id)">Xóa</span>
+            </div>
+            </div>
+          </div>
+
         </div>
-        <div *ngIf="msg.photo" class="message {{user.id != msg.from_user ? 'parker-photo' : 'stark-photo'}} ">
-          <img *ngIf="msg?.photo" [src]="url + msg?.photo" width="100%" alt="">
+
+        <div *ngIf="msg.photo" style="display: flex" >
+          <div class="message {{user.id != msg.from_user ? 'parker-photo' : 'stark-photo'}} ">
+            <img *ngIf="msg?.photo" [src]="url + msg?.photo" width="100%" alt="">
+            <div class="time">
+              {{msg.created_at | date:'shortTime'}}
+            </div>
+          </div>
+          <div class="options" *ngIf="msg.photo && msg.message == ''">
+            <div class="tipClick" (click)="showTooltip(msg.id)">
+            <svg width="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <circle cx="6.5" cy="12" r="1.5" fill="#000000"></circle>
+                <circle cx="12" cy="12" r="1.5" fill="#000000"></circle>
+                <circle cx="17.5" cy="12" r="1.5" fill="#000000"></circle>
+              </g>
+            </svg>
+            <div class="" *ngIf="msg.showDeleteTooltip">
+              <span class="tooltip-text" (click)="deleteMessage(msg.id)">Xóa</span>
+            </div>
+            </div>
+          </div>
         </div>
+
       </div>
       <div class="image-container">
         <div *ngIf="image" class="overlay">
@@ -67,7 +112,7 @@
           </g>
         </svg>
         <input type="text" formControlName="message"/>
-        <input (change)="sendImage($event)" style="display: none" type="file" accept="image/*"#send_image/>
+        <input (change)="sendImage($event)" style="display: none" type="file" accept="image/*" #send_image/>
         <button class="send-message" [disabled]="isButtonDisabled" (click)="handleMessage()">Gửi</button>
       </div>
     </div>

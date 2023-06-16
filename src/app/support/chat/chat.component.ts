@@ -1,8 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
-import { Enum, Message, Register } from "../../ts/config";
-import { environment } from "../../../environments/environment";
-import { ChatService } from 'src/app/service/chat.service';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from "@angular/forms";
+import {Enum, Message, Register} from "../../ts/config";
+import {environment} from "../../../environments/environment";
+import {ChatService} from 'src/app/service/chat.service';
 import Echo from 'laravel-echo';
 
 @Component({
@@ -11,7 +19,7 @@ import Echo from 'laravel-echo';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
   @Input() messageUser: any;
   @Input() user: any;
   @Input() userId: number = 0;
@@ -23,22 +31,31 @@ export class ChatComponent implements OnInit {
   image: any;
   file: any;
   show: boolean = false;
+  isSending: boolean = false;
   url = environment.urlImg;
+  showDeleteTooltip: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private chatService: ChatService
-
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.messageForm = this.fb.group({
-      message: [''],
+      message: ['', this.noWhitespaceValidator],
       photo: [''],
     });
-    console.log(this.messageForm.value.message)
-    console.log(this.messageForm.value.photo)
     this.getMessage();
+    this.getEventSendMessage();
 
+  }
+
+  ngAfterViewInit() {
+    this.scrollToBottom();
+  }
+
+  getEventSendMessage() {
     const echo = new Echo({
       broadcaster: 'pusher',
       key: environment.push.key,
@@ -53,29 +70,56 @@ export class ChatComponent implements OnInit {
         this.messageUser.push(res.message);
         console.log('Chat Event Data : ', this.messageUser);
       });
-
-
   }
-  get isButtonDisabled(): boolean {
-    // @ts-ignore
-    return !(this.messageForm.get('message').value || this.messageForm.get('photo').value);
-  }
-  handleMessage() {
-    let message: Message = {
-      message: this.messageForm.value.message,
-      to_user: this.user.id,
-      photo: this.messageForm.value.photo
+
+  scrollToBottom() {
+    if (this.chatContainer) {
+      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
     }
-    console.log(message)
+  }
+
+  get isButtonDisabled() {
+    // @ts-ignore
+    if (this.messageForm.get('photo').value) {
+      return false;
+    }
+    if (this.messageForm.invalid) {
+      return true;
+    }
+  }
+
+  noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : {'whitespace': true};
+  }
+
+  handleMessage() {
+    if (this.isSending) {
+      return; // Khi tin nhắn đang được gửi, không thực hiện hành động gửi mới
+    }
+    this.isSending = true; // Đánh dấu tin nhắn đang được gửi
+
+    const messageValue = this.messageForm.value?.message;
+
+    let message: Message = {
+      message: messageValue?.trim() !== '' ? messageValue : '',
+      to_user: this.user.id,
+      photo: this.messageForm.value?.photo
+    }
+
     this.chatService.sendMessage(message).subscribe(res => {
       this.data = res;
-      if (this.data.status == Enum.SUCCESS) {
-        this.messageForm.reset();
+      if (this.data?.status == Enum.SUCCESS) {
+        this.messageForm.reset({message: '', photo: ''});
         this.removeImage();
       }
+      this.isSending = false; // Đánh dấu tin nhắn đã được gửi
+
     });
 
   }
+
   getMessage() {
     if (this.messageUser == '') {
       this.chatService.readMessage(this.user.id).subscribe(res => {
@@ -83,9 +127,11 @@ export class ChatComponent implements OnInit {
       })
     }
   }
+
   goBack() {
     this.backEmit.emit(this.show);
   }
+
   sendImage(event: any) {
     this.file = event.target.files ? event.target.files[0] : '';
     this.messageForm.patchValue({
@@ -102,11 +148,30 @@ export class ChatComponent implements OnInit {
     reader.readAsDataURL(this.file);
 
   }
+
   removeImage() {
     this.file = undefined;
     this.image = undefined;
     this.messageForm.patchValue({
       image: ''
     });
+  }
+
+  showTooltip(msgId: any) {
+    // Duyệt qua danh sách tin nhắn và cập nhật trạng thái tooltip xóa cho tin nhắn tương ứng
+    this.messageUser.forEach((msg: any) => {
+      if (msg.id === msgId) {
+        msg.showDeleteTooltip = true; // Add a new property to the message object
+        console.log(msg.showDeleteTooltip);
+      } else {
+        msg.showDeleteTooltip = false; // Set showD
+      }
+    });
+  }
+
+  deleteMessage(id: any) {
+    this.chatService.delete(id).subscribe(res => {
+      this.messageUser = this.messageUser.filter((msg: any) => msg.id !== id);
+    })
   }
 }

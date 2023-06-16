@@ -10,16 +10,22 @@
         online
       </div>
     </div>
-    <div class="messages" id="chat">
+    <div class="messages" id="chat" #chatContainer>
       <!-- <div class="time">
         Today at 11:41
       </div> -->
       <div *ngFor="let msg of messageUser" >
-        <div *ngIf="msg.message" class="message {{user.id != msg.from_user ? 'parker' : 'stark'}} ">
+        <div *ngIf="msg.message" class="message {{user.id != msg.from_user ? 'stark' : 'parker'}} ">
           <p> {{msg?.message}}</p>
+          <div class="time">
+            {{msg.created_at | date:'shortTime'}}
+          </div>
         </div>
-        <div *ngIf="msg.photo" class="message {{user.id != msg.from_user ? 'parker-photo' : 'stark-photo'}} ">
+        <div *ngIf="msg.photo" class="message {{user.id != msg.from_user ? 'stark-photo' : 'parker-photo'}} ">
           <img *ngIf="msg?.photo" [src]="url + msg?.photo" width="100%" alt="">
+          <div class="time">
+            {{msg.created_at | date:'shortTime'}}
+          </div>
         </div>
       </div>
       <div class="message stark">
