@@ -40,7 +40,7 @@
 
         <div *ngIf="msg.photo" style="display: flex" >
           <div class="message {{user.id != msg.from_user ? 'parker-photo' : 'stark-photo'}} ">
-            <img *ngIf="msg?.photo" [src]="url + msg?.photo" width="100%" alt="">
+            <img *ngIf="msg?.photo" [src]="url + msg?.photo" width="100%" alt="" (click)="zoomImage(url + msg?.photo)">
             <div class="time">
               {{msg.created_at | date:'shortTime'}}
             </div>
@@ -118,3 +118,6 @@
     </div>
   </div>
 </div>
+<ng-template #modalZoomImage let-modal>
+  <app-model-zoom-image [zoomedImage]="zoomedImage"></app-model-zoom-image>
+</ng-template>

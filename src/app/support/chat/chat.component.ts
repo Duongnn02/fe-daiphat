@@ -12,6 +12,7 @@ import {Enum, Message, Register} from "../../ts/config";
 import {environment} from "../../../environments/environment";
 import {ChatService} from 'src/app/service/chat.service';
 import Echo from 'laravel-echo';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-chat',
@@ -20,6 +21,8 @@ import Echo from 'laravel-echo';
 })
 export class ChatComponent implements OnInit {
   @ViewChild('chatContainer') chatContainer!: ElementRef;
+  @ViewChild('modalZoomImage') modalZoomImage: any;
+
   @Input() messageUser: any;
   @Input() user: any;
   @Input() userId: number = 0;
@@ -34,10 +37,12 @@ export class ChatComponent implements OnInit {
   isSending: boolean = false;
   url = environment.urlImg;
   showDeleteTooltip: boolean = false;
-
+  zoomed: boolean = false;
+  zoomedImage: string = '';
   constructor(
     private fb: FormBuilder,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -48,7 +53,6 @@ export class ChatComponent implements OnInit {
     });
     this.getMessage();
     this.getEventSendMessage();
-
   }
 
   ngAfterViewInit() {
@@ -173,5 +177,10 @@ export class ChatComponent implements OnInit {
     this.chatService.delete(id).subscribe(res => {
       this.messageUser = this.messageUser.filter((msg: any) => msg.id !== id);
     })
+  }
+  zoomImage(imageUrl: string): void {
+    this.modalService.open(this.modalZoomImage);
+    this.zoomed = true;
+    this.zoomedImage = imageUrl;
   }
 }
