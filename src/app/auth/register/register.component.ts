@@ -124,7 +124,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     let data: Register = {
-      phone: this.registerForm.value.phone,
+      phone: this.registerForm.value?.phone,
       password: this.registerForm.value.password,
     }
 
@@ -133,7 +133,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         this.responseHandler(this.data);
         let user: User = {
           id: this.data.user.id,
-          phone: this.data.user.phone,
+          phone: this.data.user?.phone,
           role_id: this.data.user.role_id,
           token: this.data.access_token,
         };
@@ -141,8 +141,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
       },(error) => {
         this.errors = error.error;
-        if (this.errors.error.phone) {
-          this.toastr.error(this.errors.error.phone);
+        if (this.errors.error?.phone) {
+          this.toastr.error(this.errors.error?.phone);
         }
         if (this.errors.error.password) {
           this.toastr.error(this.errors.error.password);

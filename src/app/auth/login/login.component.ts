@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     let data: Register = {
-      phone: this.loginForm.value.phone,
+      phone: this.loginForm.value?.phone,
       password: this.loginForm.value.password,
     }
     this.authSer.login(data).subscribe(res => {
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
       this.responseHandler(this.data);
       let user: User = {
         id: this.data.user.id,
-        phone: this.data.user.phone,
+        phone: this.data.user?.phone,
         role_id: this.data.user.role_id,
         token: this.data.access_token,
       };
@@ -72,8 +72,8 @@ export class LoginComponent implements OnInit {
     },
       (error) => {
         this.errors = error.error;
-        if (this.errors.error.phone) {
-          this.toastr.error(this.errors.error.phone);
+        if (this.errors.error?.phone) {
+          this.toastr.error(this.errors.error?.phone);
         }else if (this.errors.error.password) {
           this.toastr.error(this.errors.error.password);
         } else {
