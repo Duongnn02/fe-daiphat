@@ -88,7 +88,7 @@ export class ChatUserComponent implements OnInit {
 
     let message: Message = {
       message: messageValue?.trim() !== '' ? messageValue : '' ,
-      to_user: this.user.id,
+      to_user: Enum.IS_ADMIN,
       photo: this.messageForm.value?.photo
     }
 
