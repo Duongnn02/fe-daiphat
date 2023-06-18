@@ -29,4 +29,8 @@ export enum Enum {
   SUCCESS = 'success',
   IS_ADMIN = 1,
   DEFAULT_VALUE = 1,
+  WATTING = 3,
+  PENDDING = 0,
+  APPROVAL = 2,
+  REJECT = 1,
 }

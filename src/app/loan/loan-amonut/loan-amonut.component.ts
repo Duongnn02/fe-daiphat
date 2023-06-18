@@ -15,7 +15,7 @@ export class LoanAmonutComponent implements OnInit {
   data: any;
   user: any;
   currentUser: any;
-  user$!: Observable<any>;
+  loan$!: Observable<any>;
   constructor(
     private userSer: UserService,
     private router: Router,
@@ -29,7 +29,7 @@ export class LoanAmonutComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage['currentUser']);
     const userId = this.currentUser.id;
 
-    this.user$ = this.loanService.getMoneyLoan(userId);
+    this.loan$ = this.loanService.getMoneyLoan();
   }
   handleLoan() {
     this.userSer.storeLoan(this.loan).subscribe(res => {

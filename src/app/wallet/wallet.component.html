@@ -16,39 +16,79 @@
             <div class="content-screen-stack"
               style="transform: translateX(0px); padding-bottom: 56px; padding-top: 54px;">
               <div class="wallet">
-                <div class="wallet-amount"
+                <div class="wallet-amount" *ngIf="(loan$ | async) as loan"
                   style="background: url(&quot;https://vaydaiphat.com/images/0c1362843d4d8269bc0741c4f21ac884-backgroundWallet.svg&quot;);">
                   <div class="cl-white fs-14">Số dư ví</div>
-                  <div class="cl-white fs-32 fw-600 d-flex" style="cursor: pointer;" *ngIf="(loan$ | async) as loan">
-                    {{loan.sum | number:'1.0-0' || 0 }}
-                    <div class="ml-2"
-                      style="text-decoration: underline; margin-top: -2px;">đ
-                    </div>
-                    <div class="ml-24">
-                      <button class="btn btn-danger rut-tien" type="submit" [disabled]="loan.sum == 0" (click)="approval()">Rút tiền</button>
+                  <div class="cl-white fs-32 fw-600 d-flex" style="cursor: pointer;" >
+                    <span *ngIf="loan.loans[0]?.type != 2"> {{loan?.sum | number:'1.0-0' || 0 }} </span>
+                    <span *ngIf="loan.loans[0]?.type == 2 && loan.loans[0]?.status == 2">0</span>
+                    <div class="ml-2" style="text-decoration: underline; margin-top: -2px;">đ
                     </div>
                   </div>
-                  <div class="name-account-wallet" *ngIf="(user$ | async) as user">
-                    {{user.user.name || ''}}
+                  <div class="name-account-wallet">
+                    {{loan.user.name || ''}}
                   </div>
                 </div>
-                <div class="content-wallet" *ngIf="(loan$ | async) as loan">
-                  <div class="text-align-center" *ngIf="loan.loans[0]?.type == 0 || loan.sum == 0">
-                    <img
-                      src="https://vaydaiphat.com/images/450c452726b72e140803553c99fc7387-EmptyIcon.svg" alt="">
-                    <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">
-                      Bạn chưa có yêu cầu rút tiền nào
+                <ng-container *ngIf="(loan$ | async) as loan">
+                  <div class="content-wallet-loan" *ngIf="loan.loans[0]?.status == 2">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <div class="fs-10 uppercase" style="color: rgb(79, 79, 79);">MÃ HỢP ĐỒNG VAY</div>
+                        <div class="fs-14 uppercase fw-600">{{loan.loans[0]?.contract_number}}</div>
+                      </div>
+                      <div>
+                        <div class="fs-10 uppercase">Số tiền vay</div>
+                        <div class="fs-14 uppercase fw-600">
+                          <span *ngIf="loan.loans[0]?.type != 2"> {{loan?.sum | number:'1.0-0' || 0 }} đ</span>
+                          <span *ngIf="loan.loans[0]?.type == 2 && loan.loans[0]?.status == 2">0 đ</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-end justify-content-center w-100 mt-14"
+                      (click)="approval(loan.loans[0]?.id)">
+                      <div class="button-custom w-100"><button type="button"
+                          class="ant-btn ant-btn-primary ant-btn-background-ghost" style="height: 40px;"><img
+                            src="https://vaydaiphat.com/images/b0b3e13a507e84d4541375d6671b5412-ExportIconPrimary.svg"
+                            alt="" class="mr-8"><span class="fs-14">Rút tiền về tài khoản liên kết</span></button></div>
                     </div>
                   </div>
-                  <div class="text-align-center" *ngIf="loan.loans[0]?.type == 1 || loan.loans[0]?.type == 2 || loan.loans[0]?.type == 3">
-                    <div class="cl-white fs-32 fw-600 d-flex" style="cursor: pointer;">
-                      {{loan.sum | number:'1.0-0'}}
-                    </div>
-                    <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">
-                      {{loan.loans[0]?.type == 1 ? 'Từ chối' : loan.loans[0]?.type == 2 ? 'Thành công' : loan.loans[0]?.type == 3 ? 'đang chờ duyệt' : ''}}
+                </ng-container>
+                <ng-container *ngIf="(loan$ | async) as loan">
+                  <div class="content-wallet-loan" *ngIf="loan.loans[0]?.status == 0 || loan?.sum == 0">
+                    <div class="text-align-center">
+                      <img src="https://vaydaiphat.com/images/450c452726b72e140803553c99fc7387-EmptyIcon.svg" alt="">
+                      <div class="fs-16 mt-24" style="color: rgb(130, 130, 130);">
+                        Bạn chưa có yêu cầu rút tiền nào
+                      </div>
                     </div>
                   </div>
-                </div>
+                </ng-container>
+                <ng-container *ngIf="(loan$ | async) as loan">
+                  <div class="content-wallet-loan"
+                    *ngIf="loan.loans[0]?.type == 1 || loan.loans[0]?.type == 2 || loan.loans[0]?.type == 3">
+                    <div class="text-align-center">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <div class="fs-10 uppercase" style="color: rgb(79, 79, 79);">MÃ HỢP ĐỒNG VAY</div>
+                          <div class="fs-14 uppercase fw-600">{{loan.loans[0]?.contract_number}}</div>
+                        </div>
+                        <div>
+                          <div class="fs-10 uppercase" style="color: rgb(79, 79, 79);">Số tiền vay</div>
+                          <div class="fs-14 uppercase fw-600">{{loan?.sum | number:'1.0-0'}}</div>
+                        </div>
+                        <div>
+                          <div class="fs-10 uppercase">Trạng thái</div>
+                          <div class="fs-11 fw-600" *ngIf="loan.loans[0]?.type == 3" style="color: #ffdb00;">Đang xử lý
+                          </div>
+                          <div class="fs-11 fw-600" *ngIf="loan.loans[0]?.type == 1" style="color: #ff0000;">Từ chối
+                          </div>
+                          <div class="fs-11 fw-600" *ngIf="loan.loans[0]?.type == 2" style="color: #54ff00;">Thành công
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
               </div>
             </div>
             <div class="bottom-bar">

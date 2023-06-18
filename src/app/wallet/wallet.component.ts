@@ -2,6 +2,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { LoanService } from '../service/loan.service';
 import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { Enum } from '../ts/config';
 
 @Component({
   selector: 'app-wallet',
@@ -17,20 +19,29 @@ export class WalletComponent implements OnInit {
   isDataLoaded: boolean = false;
 
   constructor(private loanService: LoanService,
-    private modalService: NgbModal
-    ) { }
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('currentUser');
     this.getMoneyLoan();
   }
 
-  approval() {
-    this.modalService.open(this.withdrawMoney);
+  approval(id?: any) {
+    // this.modalService.open(this.withdrawMoney);
+    this.loanService.handleWithdrawl(id).subscribe(res => {
+      if (res.loan.type == Enum.REJECT) {
+        this.toastr.error(res.message);
+      } else {
+        this.loan$ = this.loanService.getMoneyLoan();
+        this.toastr.success(res.message);
+      }
+
+    })
+
   }
   getMoneyLoan() {
-    const userId = JSON.parse(this.token).id;
-    this.loan$ = this.loanService.getMoneyLoan(userId);
-    this.user$ = this.loanService.getMoneyLoan(userId);
+    this.loan$ = this.loanService.getMoneyLoan();
   }
 }

@@ -19,8 +19,8 @@ export class LoanService {
   viewed(): Observable<any>{
     return this.http.get(environment.url + 'viewed');
   }
-  getMoneyLoan(id: any): Observable<any> {
-    return this.http.get(environment.url + 'get-money-loan/' + id)
+  getMoneyLoan(): Observable<any> {
+    return this.http.get(environment.url + 'get-money-loan')
   }
   handleWithdrawl(id: any): Observable<any> {
     return this.http.get(environment.url + 'handle-withdrawl/' + id)

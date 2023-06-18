@@ -18,7 +18,7 @@ export class LoanDetailComponent implements OnInit {
     this.loan = JSON.parse(localStorage['loan_amount'])
     this.currentUser = localStorage.getItem('currentUser');
     const userId = JSON.parse(this.currentUser).id;
-    this.user$ = this.loanService.getMoneyLoan(userId);
+    this.user$ = this.loanService.getMoneyLoan();
 
     this.loanService.show(this.loan.id).subscribe(res => {
       this.data = res.loan;
