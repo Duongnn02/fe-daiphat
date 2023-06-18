@@ -1,10 +1,15 @@
 <div class="modal fade notification-approval" role="dialog">
   <div class="modal-dialog">
     <div class="card">
-<!--      <div class="text-right cross"> <i class="fa fa-times"></i> </div>-->
-      <div class="card-body text-center"> <img class="img-notification" src="https://img.icons8.com/bubbles/200/000000/trophy.png">
-        <h4 class="content-notification">Chúc Mừng!</h4>
-        <p class="message-notification">{{message}}</p>
+      <div class="modal-header">
+        <h3 class="modal-title uppercase" id="exampleModalLabel">Đơn vay đã được xét duyệt</h3>
+      </div>
+      <div class="card-body text-center"> <img class="img-notification"
+          src="../../../assets/image/loan.png">
+        <p class="message-notification">Chúc mừng quý khách. Hợp đồng số đã được xét duyệt. Vui lòng
+          kiểm tra kỹ nội dung của hợp đồng số sau đây. Quý khách vui lòng thanh toán khoản vay đúng thời gian
+          trên hợp đồng
+        </p>
         <button class="btn btn-out btn-square continue" data-dismiss="modal" (click)="closeModal()">Đồng ý</button>
       </div>
     </div>
