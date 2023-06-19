@@ -50,7 +50,7 @@ body {
 
 @media only screen and (max-width: 480px){
   .notification-approval {
-    height: 910px;
+    height: 960px;
   }
 }
 .card-body {
@@ -110,8 +110,13 @@ h4 {
 }
 .infor div {
   background: #e8e4e4c9;
-  padding: 1px 20px;
   margin-top: 30px;
+}
+.infor div b{
+  font-size: 18px;
+}
+.infor div p{
+  padding: 7px 20px;
 }
 .pb-16 {
   padding-bottom: 16px !important;
