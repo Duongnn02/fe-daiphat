@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   data: any;
   loan: any;
   runIndex: any;
-  message: any;
+  loanPackage: any;
   minMoney: number = 30000000;
   maxMoney: number = 1000000000;
   limit: number = 1000000;
@@ -219,7 +219,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loanApproved() {
     this.loanService.loanApproved().subscribe(res => {
       if (res.loan.viewed == 0 && res.loan.status == 2) {
-        this.message = res.message;
+        this.loanPackage = res.loan;
         this.openModal()
       }
     })

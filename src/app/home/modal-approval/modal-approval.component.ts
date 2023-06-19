@@ -8,7 +8,7 @@ import {LoanService} from "../../service/loan.service";
   styleUrls: ['./modal-approval.component.css']
 })
 export class ModalApprovalComponent implements OnInit {
-  @Input() message: any;
+  @Input() loanPackage: any;
   constructor(private modalService: NgbModal,
   private loanService: LoanService) { }
 
