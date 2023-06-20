@@ -14,6 +14,8 @@ export interface InforCccd {
   before_cccd_cmnd: any;
   after_cccd_cmnd: any;
   face_cccd_cmnd: any;
+  day_of_birthday: any;
+  permanent_address: any
 }
 export interface Loan {
   total_loan: any,

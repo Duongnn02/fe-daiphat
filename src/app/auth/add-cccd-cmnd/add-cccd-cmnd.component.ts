@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,6 +26,8 @@ export class AddCccdCmndComponent implements OnInit {
   currentUser: any;
   name: any;
   cccd: any;
+  permanent_address: any;
+  day_of_birthday: any;
   imageBf: any;
   imageAt: any;
   imageFace: any;
@@ -45,6 +48,8 @@ export class AddCccdCmndComponent implements OnInit {
       before_cccd_cmnd: ['', [Validators.required]],
       after_cccd_cmnd: ['', [Validators.required]],
       face_cccd_cmnd: ['', [Validators.required]],
+      day_of_birthday: ['', [Validators.required]],
+      permanent_address: ['', [Validators.required]],
     });
     if (localStorage['currentUser'])
       this.user = JSON.parse(localStorage['currentUser']);
@@ -53,6 +58,8 @@ export class AddCccdCmndComponent implements OnInit {
       this.currentUser = res.user;
       this.name = this.currentUser.name;
       this.cccd = this.currentUser.cccd_cmnd;
+      this.day_of_birthday = this.currentUser.day_of_birthday;
+      this.permanent_address = this.currentUser.permanent_address;
       this.imageBf = this.currentUser.before_cccd_cmnd ?  environment.urlImg + this.currentUser.before_cccd_cmnd : '';
       this.imageAt = this.currentUser.after_cccd_cmnd ? environment.urlImg + this.currentUser.after_cccd_cmnd : '';
       this.imageFace = this.currentUser.face_cccd_cmnd ? environment.urlImg + this.currentUser.face_cccd_cmnd : '';
@@ -61,6 +68,12 @@ export class AddCccdCmndComponent implements OnInit {
       }
       if (this.cccd) {
         this.addFormControl['cccd_cmnd'].disable();
+      }
+      if (this.permanent_address) {
+        this.addFormControl['permanent_address'].disable();
+      }
+      if (this.day_of_birthday) {
+        this.addFormControl['day_of_birthday'].disable();
       }
       if (this.currentUser.status_cmnd == 1) {
         this.disabled = true;
@@ -125,14 +138,18 @@ export class AddCccdCmndComponent implements OnInit {
       return;
     }
     this.submitted = true;
+    const dateSendingToServer = new DatePipe('en-US').transform(this.addCccdForm.value.day_of_birthday, 'yyyy/MM/dd')
+    console.log(dateSendingToServer);
+
     let cccd: InforCccd = {
       name: this.addCccdForm.value.name,
       cccd_cmnd: this.addCccdForm.value.cccd_cmnd,
       before_cccd_cmnd: this.addCccdForm.value.before_cccd_cmnd,
       after_cccd_cmnd: this.addCccdForm.value.after_cccd_cmnd,
-      face_cccd_cmnd: this.addCccdForm.value.face_cccd_cmnd
+      face_cccd_cmnd: this.addCccdForm.value.face_cccd_cmnd,
+      day_of_birthday: dateSendingToServer,
+      permanent_address: this.addCccdForm.value.permanent_address,
     }
-    console.log(cccd)
 
     this.data = JSON.parse(localStorage.getItem('currentUser') || '{}');
 

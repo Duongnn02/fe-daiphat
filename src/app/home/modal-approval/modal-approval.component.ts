@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {LoanService} from "../../service/loan.service";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-modal-approval',
@@ -9,10 +10,12 @@ import {LoanService} from "../../service/loan.service";
 })
 export class ModalApprovalComponent implements OnInit {
   @Input() loanPackage: any;
+  url: any;
   constructor(private modalService: NgbModal,
   private loanService: LoanService) { }
 
   ngOnInit(): void {
+    this.url = environment.urlImg;
   }
   closeModal() {
     this.modalService.dismissAll();

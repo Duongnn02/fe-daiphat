@@ -36,10 +36,10 @@
         </div>
         <div style="padding: 16px;" (click)="closeModal()">
           <div class="button-custom ">
-            <button type="button" class="ant-btn ant-btn-primary" data-dismiss="modal"
+            <a  [href]="url + 'read-contract/'+ loanPackage.id" class="ant-btn ant-btn-primary" data-dismiss="modal"
                     style="margin-top: 16px;">
               <span>Xem hợp đồng</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>

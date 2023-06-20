@@ -24,6 +24,8 @@ export class AuthService {
     let formData = new FormData();
     formData.append('name', data.name);
     formData.append('cccd_cmnd', data.cccd_cmnd);
+    formData.append('permanent_address', data.permanent_address);
+    formData.append('day_of_birthday', data.day_of_birthday);
     formData.append('before_cccd_cmnd', data.before_cccd_cmnd);
     formData.append('after_cccd_cmnd', data.after_cccd_cmnd);
     formData.append('face_cccd_cmnd', data.face_cccd_cmnd);
