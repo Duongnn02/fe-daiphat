@@ -34,12 +34,12 @@
               <b>{{loanPackage?.recurring_payment | number:'1.0-0'}}</b></p>
           </div>
         </div>
-        <div style="padding: 16px;" (click)="closeModal()">
+        <div style="padding: 16px;" (click)="closeModal(loanPackage.id)">
           <div class="button-custom ">
-            <a  [href]="url + 'read-contract/'+ loanPackage.id" class="ant-btn ant-btn-primary" data-dismiss="modal"
+            <button type="button" class="ant-btn ant-btn-primary" data-dismiss="modal"
                     style="margin-top: 16px;">
               <span>Xem hợp đồng</span>
-            </a>
+            </button>
           </div>
         </div>
       </div>
