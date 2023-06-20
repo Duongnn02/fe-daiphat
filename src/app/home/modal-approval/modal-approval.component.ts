@@ -22,7 +22,9 @@ export class ModalApprovalComponent implements OnInit {
   closeModal(id: any) {
     this.url = environment.urlImg + 'read-contract/'+id;
     this.modalService.dismissAll();
-    this.router.navigate([this.url])
+    if(id) {
+      this.router.navigate([this.url])
+    }
     this.loanService.viewed().subscribe();
   }
 }
