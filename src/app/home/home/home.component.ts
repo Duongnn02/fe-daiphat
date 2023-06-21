@@ -90,7 +90,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   getMoneyLoan() {
     this.loanService.getMoneyLoan().subscribe(res => {
-      this.loan = res.sum || 0;
+      let data = res.loans[0];
+      if (data.type != 2) {
+        this.loan = data.total_loan || 0;
+      }else {
+        this.loan = 0;
+      }
     });
   }
 

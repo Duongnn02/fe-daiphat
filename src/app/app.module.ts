@@ -38,6 +38,7 @@ import { ModalApprovalComponent } from './home/modal-approval/modal-approval.com
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { ModelWithdrawMoneyComponent } from './wallet/model-withdraw-money/model-withdraw-money.component';
 import {ModelZoomImageComponent} from "./support/chat/model-zoom-image/model-zoom-image.component";
+import {ModalPaymentComponent} from "./loan/my-pay/modal-payment/modal-payment.component";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -68,7 +69,8 @@ import {ModelZoomImageComponent} from "./support/chat/model-zoom-image/model-zoo
     ChatUserComponent,
     ModalApprovalComponent,
     ModelWithdrawMoneyComponent,
-    ModelZoomImageComponent
+    ModelZoomImageComponent,
+    ModalPaymentComponent
   ],
   imports: [
     BrowserModule,

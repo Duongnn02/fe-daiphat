@@ -143,21 +143,21 @@
                       <div class="d-flex  pv-16 justify-content-between"
                         style="border-bottom: 1px dashed rgb(254, 127, 45);">
                         <div>Thời gian vay:</div>
-                        <div class="fw-600 fs-14">{{loan.loans[0]?.time}}</div>
+                        <div class="fw-600 fs-14">{{loan.loans[0]?.time}} tháng</div>
                       </div>
                       <div class="d-flex  pv-16 justify-content-between"
                         style="border-bottom: 1px dashed rgb(254, 127, 45);">
                         <div>Ngày bắt đầu vay:</div>
-                        <div class="fw-600 fs-14">{{loan.loans[0]?.created_at}}</div>
+                        <div class="fw-600 fs-14">{{loan.loans[0]?.updated_at}}</div>
                       </div>
                       <div class="d-flex  pv-16 justify-content-between"
                         style="border-bottom: 1px dashed rgb(254, 127, 45);">
                         <div>Ngày đáo hạn:</div>
-                        <div class="fw-600 fs-14" style="color: rgb(254, 127, 45);">09/02/2023</div>
+                        <div class="fw-600 fs-14" style="color: rgb(254, 127, 45);">{{loan.loans[0]?.payment_time}}</div>
                       </div>
                       <div class="d-flex pt-16 justify-content-between">
                         <div>Trả nợ hàng tháng:</div>
-                        <div class="fw-600 fs-14">{{loan.loans[0]?.recurring_payment}}đ</div>
+                        <div class="fw-600 fs-14">{{loan.loans[0]?.recurring_payment | number: '1.0-0'}}đ</div>
                       </div>
                       <div class="pb-16 mt-2" style="border-bottom: 1px dashed rgb(254, 127, 45);"><em
                           class="fs-12 fw-500">(Đã bao gồm tiền lãi hàng tháng là 4.410.000đ )</em></div>
@@ -167,7 +167,7 @@
                             ant-click-animating-without-extra-node="false" style="height: 40px;"><span>Lịch sử trả
                               nợ</span></button></div>
                       </div>
-                      <div class="pb-8 link">Xem chi tiết</div>
+                      <div routerLink="/chi-tiet-khoan-vay" class="pb-8 link">Xem chi tiết</div>
                     </div>
                   </div>
                 </ng-container>

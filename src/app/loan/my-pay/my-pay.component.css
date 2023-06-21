@@ -30,7 +30,7 @@
 }
 @media only screen and (max-width: 480px){
   .layout {
-      height: 750px;
+    height: 750px;
   }
 }
 .layout .content {
@@ -35019,3 +35019,15 @@ body, html {
   height: 100%;
 }
 
+.ml-24 {
+  margin-left: 236px;
+  position: fixed;
+  margin-top: -8px;
+}
+.rut-tien {
+  font-size: 14px;
+  padding: 5px 10px;
+  background: repeating-linear-gradient(45deg, black, transparent 100px);
+  border: green;
+  border-radius: 3px;
+}

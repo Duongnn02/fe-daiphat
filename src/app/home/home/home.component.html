@@ -8,10 +8,14 @@
               <div class="header " style="background-color: rgba(255, 255, 255, 0.95);">
                 <div class="header-logo">
                   <img [src]="logo" alt="" width="140">
-                  <div class="align-items-center" style="display: {{token == null ? 'none' : 'flex'}};"><img
-                      src="https://vaydaiphat.com/images/9b636213bf61ef33f1f4c8d50e0bc94c-wallet.svg" alt=""
-                      class="mr-4">{{loan | number}}<span class="fs-12 ml-2"
-                      style="text-decoration: underline; margin-top: -2px;">đ</span></div>
+                  <div class="align-items-center" style="display: {{token == null ? 'none' : 'flex'}};">
+                    <img src="https://vaydaiphat.com/images/9b636213bf61ef33f1f4c8d50e0bc94c-wallet.svg" alt=""
+                      class="mr-4">
+                    {{loan | number:'1.0-0' }}
+                    <span class="fs-12 ml-2"
+                      style="text-decoration: underline; margin-top: -2px;">đ
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

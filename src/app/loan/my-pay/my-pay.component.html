@@ -27,8 +27,8 @@
             <div class="content-screen-stack"
               style="transform: translateX(0px); padding-bottom: 0px; padding-top: 54px;">
               <div class="my-pay">
-                <ng-container></ng-container>
-                <div class="d-flex justify-content-center align-items-end">
+                <ng-container *ngIf="(loan$ | async) as loan">
+                <div class="d-flex justify-content-center align-items-end" *ngIf="loan.loans[0]?.status != 2">
                   <div>
                     <div class="d-flex justify-content-center mv-24 pv-24">
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="207"
@@ -52,62 +52,67 @@
                     </div>
                   </div>
                 </div>
-                <div class="d-flex justify-content-center align-items-end">
+                </ng-container>
+                <ng-container *ngIf="(loan$ | async) as loan">
+                  <div class="wallet" *ngIf="loan.loans[0]?.status == 2">
+                    <div class="content-wallet-loan" >
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <div class="fs-10 uppercase" style="color: rgb(79, 79, 79);">MÃ HỢP ĐỒNG VAY</div>
+                          <div class="fs-14 uppercase fw-600">{{loan.loans[0]?.contract_number}}</div>
+                        </div>
+                        <div>
+                          <div class="fs-10 uppercase">Số tiền vay thanh toán</div>
+                          <div class="fs-14 uppercase fw-600">
+                            <span> {{loan.loans[0]?.recurring_payment | number:'1.0-0'}} đ</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-end justify-content-center w-100 mt-14">
+                        <div class="button-custom w-100" (click)="openModal()">
+                          <button type="button"
+                                  class="ant-btn ant-btn-primary ant-btn-background-ghost" style="height: 40px;"><img
+                            src="https://vaydaiphat.com/images/b0b3e13a507e84d4541375d6671b5412-ExportIconPrimary.svg"
+                            alt="" class="mr-8"><span class="fs-14">Thanh toán</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                  <div class="wallet" *ngFor="let payments of loan">
+                    <div class="content-wallet-loan" >
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <div class="fs-10 uppercase" style="color: rgb(79, 79, 79);">MÃ HỢP ĐỒNG VAY</div>
+                          <div class="fs-14 uppercase fw-600">{{loan.loans[0]?.contract_number}}</div>
+                        </div>
+                        <div>
+                          <div class="fs-10 uppercase">Số tiền vay thanh toán</div>
+                          <div class="fs-14 uppercase fw-600">
+                            <span> {{loan.loans[0]?.recurring_payment | number:'1.0-0'}} đ</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-end justify-content-center w-100 mt-14">
+                        <div class="button-custom w-100" (click)="openModal()">
+                          <button type="button"
+                                  class="ant-btn ant-btn-primary ant-btn-background-ghost" style="height: 40px;"><img
+                            src="https://vaydaiphat.com/images/b0b3e13a507e84d4541375d6671b5412-ExportIconPrimary.svg"
+                            alt="" class="mr-8"><span class="fs-14">Thanh toán</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <ng-container *ngIf="(loan$ | async) as loan">
+                <div class="d-flex justify-content-center align-items-end" *ngIf="loan.loans[0]?.status != 2">
                   <div class="button-custom mh-16 mv-24 pt-16 w-100">
                     <button type="button" class="ant-btn ant-btn-primary"><span>Yêu cầu vay tiền</span></button>
                   </div>
                 </div>
-                <div _ngcontent-rwo-c120="" class="content-wallet-loan">
-                  <div _ngcontent-rwo-c120="" class="d-flex justify-content-between">
-                    <div _ngcontent-rwo-c120="">
-                      <div _ngcontent-rwo-c120="" class="fs-10 uppercase" style="color: rgb(79, 79, 79);">MÃ HỢP ĐỒNG
-                        VAY</div>
-                      <div _ngcontent-rwo-c120="" class="fs-14 uppercase fw-600">9586104680</div>
-                    </div>
-                    <div _ngcontent-rwo-c120="">
-                      <div _ngcontent-rwo-c120="" class="fs-10 uppercase">Số tiền vay</div>
-                      <div _ngcontent-rwo-c120="" class="fs-14 uppercase fw-600"><!--bindings={
-                  "ng-reflect-ng-if": "false"
-                }--><span _ngcontent-rwo-c120="">0 đ</span><!--bindings={
-                  "ng-reflect-ng-if": "true"
-                }--></div>
-                    </div>
-                  </div>
-                  <div _ngcontent-rwo-c120="" class="d-flex align-items-end justify-content-center w-100 mt-14">
-                    <div _ngcontent-rwo-c120="" class="button-custom w-100"><button _ngcontent-rwo-c120="" type="button"
-                        class="ant-btn ant-btn-primary ant-btn-background-ghost" style="height: 40px;"><img
-                          _ngcontent-rwo-c120=""
-                          src="https://vaydaiphat.com/images/b0b3e13a507e84d4541375d6671b5412-ExportIconPrimary.svg"
-                          alt="" class="mr-8"><span _ngcontent-rwo-c120="" class="fs-14">Rút tiền về tài khoản liên
-                          kết</span></button></div>
-                  </div>
-                </div>
-                <div _ngcontent-nxd-c120="" class="content-wallet-loan">
-                  <div _ngcontent-nxd-c120="" class="text-align-center">
-                    <div _ngcontent-nxd-c120="" class="d-flex justify-content-between">
-                      <div _ngcontent-nxd-c120="">
-                        <div _ngcontent-nxd-c120="" class="fs-10 uppercase" style="color: rgb(79, 79, 79);">MÃ HỢP ĐỒNG
-                          VAY</div>
-                        <div _ngcontent-nxd-c120="" class="fs-14 uppercase fw-600">9586104680</div>
-                      </div>
-                      <div _ngcontent-nxd-c120="">
-                        <div _ngcontent-nxd-c120="" class="fs-10 uppercase" style="color: rgb(79, 79, 79);">Số tiền vay
-                        </div>
-                        <div _ngcontent-nxd-c120="" class="fs-14 uppercase fw-600">146,840,909</div>
-                      </div>
-                      <div _ngcontent-nxd-c120="">
-                        <div _ngcontent-nxd-c120="" class="fs-10 uppercase">Trạng thái</div><!--bindings={
-                  "ng-reflect-ng-if": "false"
-                }--><!--bindings={
-                  "ng-reflect-ng-if": "false"
-                }-->
-                        <div _ngcontent-nxd-c120="" class="fs-11 fw-600" style="color: #54ff00;">Thành công </div><!--bindings={
-                  "ng-reflect-ng-if": "true"
-                }-->
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </ng-container>
               </div>
             </div>
             <div class="bottom-bar">
@@ -121,3 +126,6 @@
     </div>
   </div>
 </div>
+<ng-template #modalPayment let-modal>
+  <app-modal-payment></app-modal-payment>
+</ng-template>

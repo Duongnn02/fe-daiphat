@@ -20,8 +20,8 @@ export class ModalApprovalComponent implements OnInit {
   ngOnInit(): void {
   }
   closeModal(id: any) {
-    window.location.href = environment.urlImg + 'read-contract/'+id;
-    this.modalService.dismissAll();
     this.loanService.viewed().subscribe();
+    this.modalService.dismissAll();
+    window.location.href = environment.urlImg + 'read-contract/'+id;
   }
 }

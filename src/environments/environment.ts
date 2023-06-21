@@ -6,7 +6,7 @@ export const environment = {
   url: 'http://127.0.0.1:8000/api/',
   urlImg: 'http://127.0.0.1:8000/',
   push : {
-    key: '95b1ad6835628d8b81be',
+    key: '5510b97f4f9ebe8070a7',
     cluster: 'ap1'
   }
 };

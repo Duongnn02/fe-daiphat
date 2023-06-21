@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoanService } from 'src/app/service/loan.service';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-loan-detail',
@@ -25,5 +26,7 @@ export class LoanDetailComponent implements OnInit {
 
     });
   }
-
+  WatchContract(id:any) {
+    window.location.href = environment.urlImg + 'read-contract/'+id;
+  }
 }
