@@ -198,7 +198,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       let loan: any;
       loan = res.user;
       if (loan.status_cmnd == undefined || loan.status_bank == undefined
-        || loan.status_infor == undefined) {
+        || loan.status_infor == undefined || loan.status_signature == undefined) {
         this.router.navigate(['/thong-tin-cua-toi']);
       } else {
         let loan: Loan = {
