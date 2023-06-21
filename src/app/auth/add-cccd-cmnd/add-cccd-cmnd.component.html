@@ -109,7 +109,7 @@
                                   alt="">
                               </span>
                               <input class="ant-input" id="day_of_birthday" type="date"
-                                value="{{day_of_birthday || ''}}" formControlName="day_of_birthday">
+                                [value]="day_of_birthday || ''" formControlName="day_of_birthday">
                             </span>
                           </div>
                         </div>

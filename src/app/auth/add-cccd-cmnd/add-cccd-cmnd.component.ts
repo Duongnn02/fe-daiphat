@@ -139,7 +139,6 @@ export class AddCccdCmndComponent implements OnInit {
     }
     this.submitted = true;
     const dateSendingToServer = new DatePipe('en-US').transform(this.addCccdForm.value.day_of_birthday, 'yyyy/MM/dd')
-    console.log(dateSendingToServer);
 
     let cccd: InforCccd = {
       name: this.addCccdForm.value.name,
