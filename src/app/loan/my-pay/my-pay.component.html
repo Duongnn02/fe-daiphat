@@ -78,33 +78,27 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                </ng-container>
-                  <div class="wallet" *ngFor="let payments of loan">
-                    <div class="content-wallet-loan" >
-                      <div class="d-flex justify-content-between">
-                        <div>
-                          <div class="fs-10 uppercase" style="color: rgb(79, 79, 79);">MÃ HỢP ĐỒNG VAY</div>
-                          <div class="fs-14 uppercase fw-600">{{loan.loans[0]?.contract_number}}</div>
-                        </div>
-                        <div>
-                          <div class="fs-10 uppercase">Số tiền vay thanh toán</div>
-                          <div class="fs-14 uppercase fw-600">
-                            <span> {{loan.loans[0]?.recurring_payment | number:'1.0-0'}} đ</span>
+                      <div class="content-wallet-loan" *ngFor="let payment of payments">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <div class="fs-10 uppercase" style="color: rgb(79, 79, 79);">MÃ HỢP ĐỒNG VAY</div>
+                            <div class="fs-14 uppercase fw-600">{{payment.loan?.contract_number}}</div>
+                          </div>
+                          <div>
+                            <div class="fs-10 uppercase" style="color: rgb(79, 79, 79);">Số tiền vay</div>
+                            <div class="fs-14 uppercase fw-600">{{payment.loan?.recurring_payment | number:'1.0-0'}}</div>
+                          </div>
+                          <div>
+                            <div class="fs-10 uppercase">Trạng thái</div>
+                            <div class="fs-11 fw-600" *ngIf="payment?.status == 1" style="color: #ff0000;">Từ chối
+                            </div>
+                            <div class="fs-11 fw-600" *ngIf="payment?.status == 2" style="color: #54ff00;">Thành công
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="d-flex align-items-end justify-content-center w-100 mt-14">
-                        <div class="button-custom w-100" (click)="openModal()">
-                          <button type="button"
-                                  class="ant-btn ant-btn-primary ant-btn-background-ghost" style="height: 40px;"><img
-                            src="https://vaydaiphat.com/images/b0b3e13a507e84d4541375d6671b5412-ExportIconPrimary.svg"
-                            alt="" class="mr-8"><span class="fs-14">Thanh toán</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
                   </div>
+                </ng-container>
 
                 <ng-container *ngIf="(loan$ | async) as loan">
                 <div class="d-flex justify-content-center align-items-end" *ngIf="loan.loans[0]?.status != 2">

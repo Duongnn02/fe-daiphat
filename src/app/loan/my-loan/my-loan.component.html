@@ -35,7 +35,7 @@
                       <div>
                         <div>Tên ngân hàng:</div>
                         <div class="mt-4 fs-13">
-                          <div class="fw-600 fs-14">{{data.inforPay?.bank}}</div>
+                          <div class="fw-600 fs-14">{{data?.inforPay?.bank}}</div>
                         </div>
                       </div>
                       <div class="fw-600 fs-14 d-flex align-items-center justify-content-center">
@@ -48,7 +48,7 @@
                       <div>
                         <div>Tài khoản ngân hàng:</div>
                         <div class="mt-4 fs-13">
-                          <div class="fw-600 fs-14">{{data.inforPay?.bank_number}}</div>
+                          <div class="fw-600 fs-14">{{data?.inforPay?.bank_number}}</div>
                         </div>
                       </div>
                       <div class="fw-600 fs-14 d-flex align-items-center justify-content-center">
@@ -61,7 +61,7 @@
                       <div>
                         <div>Tên người nhận chuyển khoản:</div>
                         <div class="mt-4 fs-13">
-                          <div class="fw-600 fs-14">{{data.inforPay?.account_bank}}</div>
+                          <div class="fw-600 fs-14">{{data?.inforPay?.account_bank}}</div>
                         </div>
                       </div>
                       <div class="fw-600 fs-14 d-flex align-items-center justify-content-center">
@@ -75,7 +75,7 @@
                         <div>Nội dung chuyển khoản:</div>
                         <div class="mt-4 fs-13">
                           <div class="fw-600 fs-14 pr-8 fs-12 uppercase" style="line-height: 17px;">
-                            {{data.inforPay?.content}}</div>
+                            {{data?.inforPay?.content}}</div>
                         </div>
                       </div>
                       <div class="fw-600 fs-14 d-flex align-items-center justify-content-center">
@@ -89,7 +89,7 @@
                         <div style="color: red">THÔNG BÁO:</div>
                         <div class="mt-4 fs-13">
                           <div class="fw-600 fs-14 pr-8 fs-12 uppercase" style="line-height: 17px;">
-                            {{data.inforPay?.notification}}</div>
+                            {{data?.inforPay?.notification}}</div>
                         </div>
                       </div>
                       <div class="fw-600 fs-14 d-flex align-items-center justify-content-center">
@@ -123,7 +123,7 @@
                     style="color: rgb(130, 130, 130); margin: 0px 40px; word-break: break-word;">Bạn không có hóa đơn
                     nào để trả nợ trong tháng này.
                   </div>
-                  <div class="button-custom mh-16 mv-24 pt-16">
+                  <div class="button-custom mh-16 mv-24 pt-16" routerLink="/home">
                     <button type="button" class="ant-btn ant-btn-primary"><span>Yêu cầu vay tiền</span></button>
                   </div>
                 </ng-container>
@@ -161,7 +161,7 @@
                       </div>
                       <div class="pb-16 mt-2" style="border-bottom: 1px dashed rgb(254, 127, 45);"><em
                           class="fs-12 fw-500">(Đã bao gồm tiền lãi hàng tháng là 4.410.000đ )</em></div>
-                      <div class="pt-16 pb-8 text-align-center">
+                      <div class="pt-16 pb-8 text-align-center" routerLink="/tra-no-cua-toi">
                         <div class="button-custom mb-8"><button type="button"
                             class="ant-btn ant-btn-primary ant-btn-background-ghost"
                             ant-click-animating-without-extra-node="false" style="height: 40px;"><span>Lịch sử trả

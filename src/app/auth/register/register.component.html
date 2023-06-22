@@ -93,9 +93,9 @@
                                   alt=""></span>
                               <input placeholder="Vui lòng đặt mật khẩu từ 6-16
                                 chữ số"
-                                id="password" action="click" type="password"
+                                id="password" action="click" type="{{type}}"
                                 formControlName="password"
-                                class="ant-input"><span
+                                class="ant-input"><span (click)="showPassword()"
                                 class="ant-input-suffix"><span role="img"
                                   aria-label="eye-invisible" tabindex="-1"
                                   class="anticon anticon-eye-invisible

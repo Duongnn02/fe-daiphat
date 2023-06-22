@@ -24,7 +24,6 @@ import { LoanDetailComponent } from './loan/loan-detail/loan-detail.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import {LoadingInterceptor} from "./shared/loading.interceptor";
 import { MyLoanComponent } from './loan/my-loan/my-loan.component';
-import { MyPayComponent } from './loan/my-pay/my-pay.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { AddMyProfileComponent } from './auth/my-profile/add-my-profile/add-my-profile.component';
 import { AddMyBankComponent } from './auth/my-profile/add-my-bank/add-my-bank.component';
@@ -39,6 +38,9 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { ModelWithdrawMoneyComponent } from './wallet/model-withdraw-money/model-withdraw-money.component';
 import {ModelZoomImageComponent} from "./support/chat/model-zoom-image/model-zoom-image.component";
 import {ModalPaymentComponent} from "./loan/my-pay/modal-payment/modal-payment.component";
+import {ForgetPasswordComponent} from "./auth/forget-password/forget-password.component";
+import {MyPayComponent} from "./loan/my-pay/my-pay.component";
+import { BaseComponent } from './base/base.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -70,7 +72,9 @@ import {ModalPaymentComponent} from "./loan/my-pay/modal-payment/modal-payment.c
     ModalApprovalComponent,
     ModelWithdrawMoneyComponent,
     ModelZoomImageComponent,
-    ModalPaymentComponent
+    ModalPaymentComponent,
+    ForgetPasswordComponent,
+    BaseComponent
   ],
   imports: [
     BrowserModule,

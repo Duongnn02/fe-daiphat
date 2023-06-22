@@ -23,10 +23,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
    canvasHeight = 30;
    registerForm !: FormGroup;
    submitted = false;
-   isShow = false;
    data: any;
    errors: any;
-
+  show: boolean = false;
+  type: string = 'password';
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -158,9 +158,14 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   responseHandler(data: any) {
     this.token.handleData(data.access_token);
   }
-  showPass() {
-    this.isShow = true;
-    console.log(this.isShow);
-
+  showPassword() {
+    if (this.show == false) {
+      this.type = 'text';
+      this.show = true;
+    } else {
+      this.type = 'password';
+      this.show = false;
+    }
   }
+
 }

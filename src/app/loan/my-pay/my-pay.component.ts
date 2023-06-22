@@ -19,15 +19,13 @@ export class MyPayComponent implements OnInit {
 
   ngOnInit(): void {
     this.loan$ = this.loanService.getMoneyLoan();
-    this.loan = JSON.parse(localStorage['loan_amount'])
     this.getMyPayment();
   }
   openModal() {
     this.modalService.open(this.modalPayment);
   }
   getMyPayment() {
-    let loanId = this.loan.id;
-    this.loanService.getPayment(loanId).subscribe(res => {
+    this.loanService.getPayment().subscribe(res => {
       this.payments = res.payments;
       console.log(this.payments)
     });

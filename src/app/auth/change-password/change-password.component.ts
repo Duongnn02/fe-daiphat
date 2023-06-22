@@ -13,6 +13,11 @@ export class ChangePasswordComponent implements OnInit {
   changepasswordForm !: FormGroup;
   data: any;
   errors: any;
+  show: boolean = false;
+  submitted: boolean = false;
+  typeOld: string = 'password';
+  typeNew: string = 'password';
+  typeConf: string = 'password';
   constructor(private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
@@ -27,6 +32,10 @@ export class ChangePasswordComponent implements OnInit {
     });
   }
   changePassword() {
+    if (this.changepasswordForm.invalid) {
+      return;
+    }
+    this.submitted = true;
     const confirmPassword = this.changepasswordForm.value.confirm_password;
     const newPassword = this.changepasswordForm.value.new_password;
 
@@ -39,14 +48,45 @@ export class ChangePasswordComponent implements OnInit {
       new_password: newPassword
     }
     this.authService.changePassword(data).subscribe(res => {
-        this.toastr.error(res.message);
+        this.toastr.success(res.message);
     },(error) => {
       this.errors = error.error;
         this.toastr.error(this.errors.message);
+        return;
     },
     () => {
       localStorage.clear();
       this.router.navigate(['/login']);
     });
+  }
+  get changePasswordFormControl() {
+    return this.changepasswordForm.controls;
+  }
+  showPasswordOld() {
+    if (this.show == false) {
+      this.typeOld = 'text';
+      this.show = true;
+    } else {
+      this.typeOld = 'password';
+      this.show = false;
+    }
+  }
+  showPasswordNew() {
+    if (this.show == false) {
+      this.typeNew = 'text';
+      this.show = true;
+    } else {
+      this.typeNew = 'password';
+      this.show = false;
+    }
+  }
+  showPasswordConf(){
+    if (this.show == false) {
+      this.typeConf = 'text';
+      this.show = true;
+    } else {
+      this.typeConf = 'password';
+      this.show = false;
+    }
   }
 }

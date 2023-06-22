@@ -20,6 +20,7 @@ import {AddMyProfileComponent} from "./auth/my-profile/add-my-profile/add-my-pro
 import {AddMyBankComponent} from "./auth/my-profile/add-my-bank/add-my-bank.component";
 import {SignatureComponent} from "./auth/my-profile/signature/signature.component";
 import {AdditionalInforComponent} from "./auth/my-profile/additional-infor/additional-infor.component";
+import {ForgetPasswordComponent} from "./auth/forget-password/forget-password.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -91,6 +92,9 @@ const routes: Routes = [
   {
     path: 'thong-tin-bo-sung', component: AdditionalInforComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'quen-mat-khau', component: ForgetPasswordComponent,
   },
 ];
 

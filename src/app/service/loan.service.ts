@@ -10,8 +10,8 @@ export class LoanService {
 
   constructor(private http: HttpClient) {}
 
-  show(id: any): Observable<any>{
-    return this.http.get(environment.url + 'loan/' + id);
+  show(): Observable<any>{
+    return this.http.get(environment.url + 'loan-show');
   }
   loanApproved(): Observable<any>{
     return this.http.get(environment.url + 'loan-approved');
@@ -35,7 +35,7 @@ export class LoanService {
     formData.append('loan_id', data.loan_id);
     return this.http.post(environment.url + 'payment-store', formData)
   }
-  getPayment(id: any) : Observable<any>{
-    return this.http.get(environment.url + 'get-payment/' + id);
+  getPayment() : Observable<any>{
+    return this.http.get(environment.url + 'get-payment');
   }
 }

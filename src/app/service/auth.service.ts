@@ -35,4 +35,7 @@ export class AuthService {
   getLogo(): Observable<any> {
     return this.http.get(environment.url + 'get-logo');
   }
+  forgetPassword(email: any): Observable<any> {
+    return this.http.post(environment.url + 'forget-password', email);
+  }
 }

@@ -50,7 +50,7 @@ export class ModalPaymentComponent implements OnInit {
     this.loanService.paymentStore(data).subscribe(res => {
       alert("Thanh toán thành công");
       this.modalService.dismissAll();
-        this.loanService.getPayment(this.loan.id);
+        this.loanService.getPayment();
     })
   }
 }
