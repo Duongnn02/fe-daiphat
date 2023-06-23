@@ -16,6 +16,7 @@ export class AddMyProfileComponent implements OnInit {
   currentUser: any;
   user: any;
   data: any;
+  error: any;
   submitted = false;
   disabled: boolean = false;
   constructor(
@@ -108,7 +109,8 @@ export class AddMyProfileComponent implements OnInit {
       console.log(res);
 
     }, err => {
-      this.toastr.error('Cập nhập thất bại');
+      this.error = err.error;
+        this.toastr.error(this.error.message?.email);
       return;
     },
       () => {

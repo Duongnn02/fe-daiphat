@@ -132,6 +132,14 @@
                             Vui lòng nhập lương hàng tháng</div>
                         </div>
                       </div>
+                        <div style="display: flex; flex-wrap: nowrap;" *ngIf="addFormControl['salary'].errors?.['maxlength'] && (addFormControl['salary'].touched
+                        ||submitted)">
+                          <div class="ant-form-item-explain
+                          ant-form-item-explain-connected">
+                            <div role="alert" class="ant-form-item-explain-error" style="">
+                              Mức lương không được quá 20 ký tự</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -176,6 +184,15 @@
                             Vui lòng nhập email</div>
                         </div>
                       </div>
+                        <div style="display: flex; flex-wrap: nowrap;" *ngIf="(addFormControl['email'].touched
+                        ||submitted) &&
+                        addFormControl['email'].errors?.['email']">
+                          <div class="ant-form-item-explain
+                          ant-form-item-explain-connected">
+                            <div role="alert" class="ant-form-item-explain-error" style="">
+                              Vui lòng nhập đúng định dạng email</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

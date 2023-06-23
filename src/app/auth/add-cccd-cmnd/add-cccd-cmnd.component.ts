@@ -1,11 +1,12 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/service/auth.service';
-import { UserService } from 'src/app/service/user.service';
-import { InforCccd } from 'src/app/ts/config';
-import { environment } from 'src/environments/environment';
+import {DatePipe} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from 'src/app/service/auth.service';
+import {UserService} from 'src/app/service/user.service';
+import {InforCccd} from 'src/app/ts/config';
+import {environment} from 'src/environments/environment';
+import {ImageValidator} from "../../Validate/image-validator";
 
 @Component({
   selector: 'app-add-cccd-cmnd',
@@ -32,35 +33,39 @@ export class AddCccdCmndComponent implements OnInit {
   imageAt: any;
   imageFace: any;
   disabled: boolean = false;
-  file:any;
+  file: any;
+
   constructor(
     private fb: FormBuilder,
     private authSer: AuthService,
     private userSer: UserService,
     private router: Router,
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
     this.addCccdForm = this.fb.group({
       name: ['', [Validators.required]],
       cccd_cmnd: ['', [Validators.required]],
-      before_cccd_cmnd: ['', [Validators.required]],
-      after_cccd_cmnd: ['', [Validators.required]],
-      face_cccd_cmnd: ['', [Validators.required]],
+      before_cccd_cmnd: ['', [Validators.required, ImageValidator.imageSizeValidator(100000),
+        ImageValidator.imageExtensionValidator(['image/jpeg', 'image/png'])]],
+      after_cccd_cmnd: ['', [Validators.required, ImageValidator.imageSizeValidator(100000),
+        ImageValidator.imageExtensionValidator(['image/jpeg', 'image/png'])]],
+      face_cccd_cmnd: ['', [Validators.required, ImageValidator.imageSizeValidator(100000),
+        ImageValidator.imageExtensionValidator(['image/jpeg', 'image/png'])]],
       day_of_birthday: ['', [Validators.required]],
       permanent_address: ['', [Validators.required]],
     });
     if (localStorage['currentUser'])
       this.user = JSON.parse(localStorage['currentUser']);
-      const id = parseInt(this.user.id);
-      this.userSer.show(id).subscribe(res => {
+    const id = parseInt(this.user.id);
+    this.userSer.show(id).subscribe(res => {
       this.currentUser = res.user;
       this.name = this.currentUser.name;
       this.cccd = this.currentUser.cccd_cmnd;
       this.day_of_birthday = this.currentUser.day_of_birthday;
       this.permanent_address = this.currentUser.permanent_address;
-      this.imageBf = this.currentUser.before_cccd_cmnd ?  environment.urlImg + this.currentUser.before_cccd_cmnd : '';
+      this.imageBf = this.currentUser.before_cccd_cmnd ? environment.urlImg + this.currentUser.before_cccd_cmnd : '';
       this.imageAt = this.currentUser.after_cccd_cmnd ? environment.urlImg + this.currentUser.after_cccd_cmnd : '';
       this.imageFace = this.currentUser.face_cccd_cmnd ? environment.urlImg + this.currentUser.face_cccd_cmnd : '';
       if (this.name) {
@@ -80,9 +85,11 @@ export class AddCccdCmndComponent implements OnInit {
       }
     });
   }
+
   get addFormControl() {
     return this.addCccdForm.controls;
   }
+
   uploadBFCccd(event: any) {
     this.file = event.target.files ? event.target.files[0] : '';
 
@@ -100,6 +107,7 @@ export class AddCccdCmndComponent implements OnInit {
     reader.readAsDataURL(this.file);
 
   }
+
   uploadATCccd(event: any) {
     const file = event.target.files ? event.target.files[0] : '';
 
@@ -116,6 +124,7 @@ export class AddCccdCmndComponent implements OnInit {
     }
     reader.readAsDataURL(file);
   }
+
   uploadFace(event: any) {
     const file = event.target.files ? event.target.files[0] : '';
 
@@ -132,6 +141,7 @@ export class AddCccdCmndComponent implements OnInit {
     }
     reader.readAsDataURL(file);
   }
+
   addCccd() {
     if (this.addCccdForm.invalid) {
       this.disabled = true;
@@ -153,17 +163,16 @@ export class AddCccdCmndComponent implements OnInit {
     this.data = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
     this.authSer.uploadCccd(cccd, this.data.id).subscribe(res => {
-      this.item = res;
-    }, err => {
-      console.log(err);
-      alert("Cập nhập thất bại");
-    },
-    () => {
-      this.router.navigate(['/thong-tin-cua-toi']);
-    });
+        this.item = res;
+      }, err => {
+        console.log(err);
+        alert("Cập nhập thất bại");
+      },
+      () => {
+        this.router.navigate(['/thong-tin-cua-toi']);
+      });
 
   }
-
 
 
 }
